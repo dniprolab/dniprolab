@@ -18,7 +18,7 @@
         <!--<spring.version>4.0.0.RELEASE</spring.version>-->
         <!--<spring.data.jpa.version>1.4.3.RELEASE</spring.data.jpa.version>-->
         <!--<spring.security.version>3.2.0.RELEASE</spring.security.version>-->
-
+        <org.springframework.version>4.2.4.RELEASE</org.springframework.version>
         <!--<build.profile.id>dev</build.profile.id>-->
         <jdk.version>1.8</jdk.version>
         <!--<skip.integration.tests>true</skip.integration.tests>-->
@@ -30,9 +30,7 @@
     <build>
         <finalName>dniprolab</finalName>
         <!-- https://maven.apache.org/plugins/maven-resources-plugin/examples/include-exclude.html
-            Section added to include source of messages to build configuration
-            Включаем в проект все файлы с расширением .properties находящиеся в папке ресурсов
-         -->
+            Section added to include source of messages to build configuration -->
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -98,5 +96,96 @@
 
         </plugins>
     </build>
+
+    <dependencies>
+        <!-- Core utilities used by other modules. Define this if you use Spring Utility APIs
+            (org.springframework.core.*/org.springframework.util.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Expression Language (depends on spring-core) Define this if you use Spring Expression APIs
+            (org.springframework.expression.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Bean Factory and JavaBeans utilities (depends on spring-core)Define this if you use Spring Bean APIs
+            (org.springframework.beans.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Application Context(depends on spring-core, spring-expression, spring-aop, spring-beans)
+            This is the central artifact for Spring's Dependency Injection Container
+            and is generally always defined-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Various Application Context utilities, including EhCache, JavaMail, Quartz, and Freemarker integration
+            Define this if you need any of these integrations-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Transaction Management Abstraction (depends on spring-core, spring-beans, spring-aop, spring-context)
+            Define this if you use Spring Transactions or DAO Exception Hierarchy
+            (org.springframework.transaction.*/org.springframework.dao.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- JDBC Data Access Library (depends on spring-core, spring-beans, spring-context, spring-tx)
+            Define this if you use Spring's JdbcTemplate API
+            (org.springframework.jdbc.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Object-to-Relation-Mapping (ORM) integration with Hibernate, JPA and iBatis.
+            (depends on spring-core, spring-beans, spring-context, spring-tx)
+            Define this if you need ORM (org.springframework.orm.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Web application development utilities applicable to both Servlet and Portlet Environments
+            (depends on spring-core, spring-beans, spring-context)
+            Define this if you use Spring MVC, or wish to use Struts, JSF, or another
+            web framework with Spring (org.springframework.web.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Spring MVC for Servlet Environments
+            (depends on spring-core, spring-beans, spring-context, spring-web)
+            Define this if you use Spring MVC with a Servlet Container such as
+            Apache Tomcat (org.springframework.web.servlet.*)-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <!-- Support for testing Spring applications with tools such as JUnit and TestNG
+            This artifact is generally always defined with a 'test' scope for the
+            integration testing framework and unit testing stubs-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
 
 </project>
