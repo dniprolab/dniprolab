@@ -44,6 +44,5 @@ public class DniprolabApplicationConfig implements WebApplicationInitializer {
         security.addMappingForUrlPatterns(dispatcherTypes, true, "/*");
 
         servletContext.addListener(new ContextLoaderListener(rootContext));
-
     }
 }
