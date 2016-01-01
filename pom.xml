@@ -7,6 +7,96 @@
     <groupId>com.dniprolab</groupId>
     <artifactId>dniprolab</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <description>Some project.</description>
+    <name>dniprolab</name>
 
+    <properties>
+        <!--<hibernate.version>4.2.4.Final</hibernate.version>-->
+        <!--<mysql.connector.version>5.1.26</mysql.connector.version>-->
+        <!--<slf4j.version>1.7.5</slf4j.version>-->
+        <!--<spring.version>4.0.0.RELEASE</spring.version>-->
+        <!--<spring.data.jpa.version>1.4.3.RELEASE</spring.data.jpa.version>-->
+        <!--<spring.security.version>3.2.0.RELEASE</spring.security.version>-->
+
+        <!--<build.profile.id>dev</build.profile.id>-->
+        <jdk.version>1.8</jdk.version>
+        <!--<skip.integration.tests>true</skip.integration.tests>-->
+        <!--<skip.unit.tests>true</skip.unit.tests>-->
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <finalName>dniprolab</finalName>
+        <!-- https://maven.apache.org/plugins/maven-resources-plugin/examples/include-exclude.html
+            Section added to include source of messages to build configuration
+            Включаем в проект все файлы с расширением .properties находящиеся в папке ресурсов
+         -->
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/messages*.properties</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/messages*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        <!-- Maven plugins -->
+        <plugins>
+            <!-- war plugin - allows packaging in web archive  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <!-- Maven resource plugin, handles resources for copying out of project -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- https://maven.apache.org/plugins/maven-compiler-plugin/index.html
+                compiling sources of project
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <!-- Maven jetty plugin, allows to start jetty server by using command $ mvn jetty:run
+                 default deployed url http://localhost:8080/  -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.2.11.v20150529</version>
+                <configuration>
+                    <stopKey>stop</stopKey>
+                    <stopPort>9999</stopPort>
+                </configuration>
+            </plugin>
+
+            <!-- //TODO Section with testing plugins missed! -->
+
+        </plugins>
+    </build>
 
 </project>
