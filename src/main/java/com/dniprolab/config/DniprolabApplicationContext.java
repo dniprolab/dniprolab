@@ -25,7 +25,7 @@ import java.util.Properties;
 @ComponentScan //TODO add packages for component scan!
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = {})//TODO add path to repository interfaces
+@EnableJpaRepositories(basePackages = {"com.dniprolab.user.repo"})//TODO add path to repository interfaces
 @Import({WebAppConfig.class, SecurityContext.class})
 public class DniprolabApplicationContext {
 

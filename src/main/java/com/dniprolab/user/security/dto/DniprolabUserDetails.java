@@ -10,7 +10,10 @@ import java.util.Set;
 /**
  * Created by Overlord on 03.01.2016.
  */
+//TODO class is not necessary, remove later
 public class DniprolabUserDetails {
+
+    private Long id;
 
     private String login;
 
@@ -20,7 +23,8 @@ public class DniprolabUserDetails {
 
     private Set<GrantedAuthority> authorities;
 
-    public DniprolabUserDetails(String login, String password, Role role){
+    public DniprolabUserDetails(Long id, String login, String password, Role role){
+        this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
@@ -30,6 +34,10 @@ public class DniprolabUserDetails {
     }
 
     public DniprolabUserDetails() {
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getLogin() {
@@ -51,6 +59,7 @@ public class DniprolabUserDetails {
     @Override
     public String toString() {
         return "DniprolabUserDetails{" +
+                "id=" + id + "\'" +
                 "login='" + login + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
