@@ -1,6 +1,0 @@
-dniprolab-sonar:
-  container_name: dniprolab-sonar
-  image: sonarqube:4.5.6
-  ports:
-    - "9000:9000"
-    - "9092:9092"
