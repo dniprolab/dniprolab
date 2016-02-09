@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "dniprolab",
+    "packageName": "com.fcdnipro.dniprolab",
+    "packageFolder": "com/fcdnipro/dniprolab",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "elasticsearch",
+    "useSass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": true,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "ef6865864c090e1f2534fd31fc29075529be03fb",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}

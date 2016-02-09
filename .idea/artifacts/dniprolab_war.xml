@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="dniprolab:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="dniprolab.war">
-      <element id="artifact" artifact-name="dniprolab:war exploded" />
-    </root>
-  </artifact>
-</component>

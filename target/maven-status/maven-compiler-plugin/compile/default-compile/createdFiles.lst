@@ -1,6 +1,0 @@
-com\dniprolab\user\entity\BaseEntity.class
-com\dniprolab\config\DniprolabApplicationConfig.class
-com\dniprolab\config\WebAppConfig.class
-com\dniprolab\config\SecurityContext.class
-com\dniprolab\user\entity\User.class
-com\dniprolab\config\DniprolabApplicationContext.class
