@@ -1,0 +1,80 @@
+
+<div>
+    <h2><span translate="dniprolabApp.message.detail.title">Message</span> {{message.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.message.text">Text</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.text}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.message.image">Image</span>
+                </td>
+                <td>
+                    <img data-ng-src="{{'data:' + message.imageContentType + ';base64,' + message.image}}" style="max-width: 100%;" ng-if="message.image"/>
+                    <div>{{message.imageContentType}}  {{byteSize(message.image)}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.message.document">Document</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.document}}</span>
+                    <div>{{message.documentContentType}}  {{byteSize(message.document)}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.message.author">Author</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.author}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.message.created">Created</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.created | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.message.title">Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{message.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.message.user">user</span>
+                </td>
+                <td>
+                    {{message.userLogin}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>
