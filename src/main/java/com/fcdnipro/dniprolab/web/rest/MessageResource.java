@@ -103,7 +103,7 @@ public class MessageResource {
     * GET /messages/:login - get all Message entities for current user
     * @param - PathVariable login of current user
      */
-    @RequestMapping(value = "/messages/{login}", method = RequestMethod.GET,
+    @RequestMapping(value = "/messages/currentuser/{login}", method = RequestMethod.GET,
                                                 produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
@@ -111,11 +111,10 @@ public class MessageResource {
         log.debug("REST request to get all Message for current user");
         List<Message> messages = messageService.findAllMessagesForCurrentUser(login);
         PageImpl<Message> messagePage = new PageImpl<Message>(messages);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(messagePage, "/api/messages" + login);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(messagePage, "/api/messages/currentuser/" + login);
         return new ResponseEntity<>(messagePage.getContent().stream()
             .map(messageMapper::messageToMessageDTO)
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
-
     }
 
     /**

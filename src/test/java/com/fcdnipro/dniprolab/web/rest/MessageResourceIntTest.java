@@ -4,6 +4,7 @@ import com.fcdnipro.dniprolab.Application;
 import com.fcdnipro.dniprolab.domain.Message;
 import com.fcdnipro.dniprolab.repository.MessageRepository;
 import com.fcdnipro.dniprolab.service.MessageService;
+import com.fcdnipro.dniprolab.service.UserService;
 import com.fcdnipro.dniprolab.web.rest.dto.MessageDTO;
 import com.fcdnipro.dniprolab.web.rest.mapper.MessageMapper;
 
@@ -51,7 +52,7 @@ public class MessageResourceIntTest {
 
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of("Z"));
 
-    
+
     private static final String DEFAULT_TEXT = "";
     private static final String UPDATED_TEXT = "";
 
@@ -72,6 +73,7 @@ public class MessageResourceIntTest {
     private static final String DEFAULT_CREATED_STR = dateTimeFormatter.format(DEFAULT_CREATED);
     private static final String DEFAULT_TITLE = "AAAAA";
     private static final String UPDATED_TITLE = "BBBBB";
+    private static final String CURRENT_USER_LOGIN = "admin";
 
     @Inject
     private MessageRepository messageRepository;
@@ -87,6 +89,9 @@ public class MessageResourceIntTest {
 
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+
+    @Inject
+    private UserService userService;
 
     private MockMvc restMessageMockMvc;
 
@@ -114,6 +119,7 @@ public class MessageResourceIntTest {
         message.setAuthor(DEFAULT_AUTHOR);
         message.setCreated(DEFAULT_CREATED);
         message.setTitle(DEFAULT_TITLE);
+        message.setUser(userService.getUserWithAuthoritiesByLogin(CURRENT_USER_LOGIN).get());
     }
 
     @Test
@@ -247,5 +253,19 @@ public class MessageResourceIntTest {
         // Validate the database is empty
         List<Message> messages = messageRepository.findAll();
         assertThat(messages).hasSize(databaseSizeBeforeDelete - 1);
+    }
+
+    @Test
+    @Transactional
+    public void getMessagesForCurrentUser() throws Exception {
+        //initialize database
+        messageRepository.saveAndFlush(message);
+
+        //get existing message with user="admin" owner
+        restMessageMockMvc.perform(get("/api/messages/currentuser/{user}", CURRENT_USER_LOGIN))
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))
+            .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)));
     }
 }
