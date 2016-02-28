@@ -32,27 +32,27 @@ public class Message implements Serializable {
     @Lob
     @Column(name = "text")
     private String text;
-    
+
     @Lob
     @Column(name = "image")
     private byte[] image;
-    
+
     @Column(name = "image_content_type")
     private String imageContentType;
 
     @Lob
     @Column(name = "document")
     private byte[] document;
-    
+
     @Column(name = "document_content_type")
     private String documentContentType;
 
     @Column(name = "author")
     private String author;
-    
+
     @Column(name = "created")
     private ZonedDateTime created;
-    
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -68,7 +68,7 @@ public class Message implements Serializable {
     public String getText() {
         return text;
     }
-    
+
     public void setText(String text) {
         this.text = text;
     }
@@ -76,7 +76,7 @@ public class Message implements Serializable {
     public byte[] getImage() {
         return image;
     }
-    
+
     public void setImage(byte[] image) {
         this.image = image;
     }
@@ -92,7 +92,7 @@ public class Message implements Serializable {
     public byte[] getDocument() {
         return document;
     }
-    
+
     public void setDocument(byte[] document) {
         this.document = document;
     }
@@ -108,7 +108,7 @@ public class Message implements Serializable {
     public String getAuthor() {
         return author;
     }
-    
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -116,7 +116,7 @@ public class Message implements Serializable {
     public ZonedDateTime getCreated() {
         return created;
     }
-    
+
     public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
@@ -124,7 +124,7 @@ public class Message implements Serializable {
     public String getTitle() {
         return title;
     }
-    
+
     public void setTitle(String title) {
         this.title = title;
     }
