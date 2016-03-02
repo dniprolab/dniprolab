@@ -1,0 +1,82 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myScheduleLabel" translate="dniprolabApp.schedule.home.createOrEditLabel">Create or edit a Schedule</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="schedule.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.schedule.opponent" for="field_opponent">Opponent</label>
+            <input type="text" class="form-control" name="opponent" id="field_opponent"
+                    ng-model="schedule.opponent"
+                    required ng-minlength="2" ng-maxlength="32" />
+            <div ng-show="editForm.opponent.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.opponent.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.opponent.$error.minlength" translate="entity.validation.minlength" translate-value-min="2">
+                    This field is required to be at least 2 characters.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.opponent.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="32">
+                    This field cannot be longer than 32 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.schedule.date" for="field_date">Date</label>
+            <input id="field_date" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="schedule.date" is-open="datePickerForDate.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.schedule.type" for="field_type">Type</label>
+            <select class="form-control" name="type" ng-model="schedule.type" id="field_type" required>
+                <option value="CHAMPIONSHIP" translate="dniprolabApp.MatchType.CHAMPIONSHIP">CHAMPIONSHIP</option>
+                <option value="CUP" translate="dniprolabApp.MatchType.CUP">CUP</option>
+                <option value="FRIENDLY" translate="dniprolabApp.MatchType.FRIENDLY">FRIENDLY</option>
+                <option value="EUROCUP" translate="dniprolabApp.MatchType.EUROCUP">EUROCUP</option>
+                <option value="OTHER" translate="dniprolabApp.MatchType.OTHER">OTHER</option>
+            </select>
+            <div ng-show="editForm.type.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.type.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.schedule.comment" for="field_comment">Comment</label>
+            <input type="text" class="form-control" name="comment" id="field_comment"
+                    ng-model="schedule.comment"
+                    ng-maxlength="128" />
+            <div ng-show="editForm.comment.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.comment.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="128">
+                    This field cannot be longer than 128 characters.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

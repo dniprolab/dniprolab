@@ -1,0 +1,12 @@
+{
+    "dniprolabApp": {
+        "MatchType" : {
+            "null": "",
+            "CHAMPIONSHIP": "CHAMPIONSHIP",
+            "CUP": "CUP",
+            "FRIENDLY": "FRIENDLY",
+            "EUROCUP": "EUROCUP",
+            "OTHER": "OTHER"
+        }
+    }
+}
