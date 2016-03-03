@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface VideoRepository extends JpaRepository<Video,Long> {
 
-    @Query("select video from Video video video.user.login = ?1")
+    @Query("select video from Video video where video.user.login = ?1")
     public List<Video> findAllVideosForCurrentUser(String login);
 
 }

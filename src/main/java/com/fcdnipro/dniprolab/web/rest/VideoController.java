@@ -1,4 +1,4 @@
-package com.fcdnipro.dniprolab.web;
+package com.fcdnipro.dniprolab.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fcdnipro.dniprolab.domain.Video;
@@ -45,7 +45,7 @@ public class VideoController {
     /**
      * POST method  /videos -> Create a new video entity.
      */
-    @RequestMapping(value = "/videos",
+    @RequestMapping(value = "/video",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -63,7 +63,7 @@ public class VideoController {
     /**
      * PUT  /video -> Updates an existing entity.
      */
-    @RequestMapping(value = "/videos",
+    @RequestMapping(value = "/video",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -81,7 +81,7 @@ public class VideoController {
     /**
      * GET  /videos -> get all entities.
      */
-    @RequestMapping(value = "/schedules",
+    @RequestMapping(value = "/video",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -96,7 +96,7 @@ public class VideoController {
     /**
      * GET  /videos/:id -> get the entity with particular id.
      */
-    @RequestMapping(value = "/videos/{id}",
+    @RequestMapping(value = "/video/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -139,7 +139,7 @@ public class VideoController {
     * GET all messages for current user
     * @return list of entities
      */
-    @RequestMapping(value = "/videos/currentuser/", method = RequestMethod.GET,
+    @RequestMapping(value = "/video/currentuser/", method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Video>> findAllVideosForCurrentUser() throws URISyntaxException {
