@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span translate="dniprolabApp.schedule.detail.title">Schedule</span> {{schedule.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.schedule.opponent">Opponent</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{schedule.opponent}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.schedule.date">Date</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{schedule.date | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.schedule.type">Type</span>
+                </td>
+                <td>
+                    <span class="form-control-static" translate="{{'dniprolabApp.MatchType.' + schedule.type}}">{{schedule.type}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.schedule.comment">Comment</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{schedule.comment}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>
