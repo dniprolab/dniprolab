@@ -50,6 +50,10 @@ spring:
         cache-seconds: 1
     thymeleaf:
         cache: false
+    smsNotificationProperties:
+        login: mock
+        password: mock
+        URL: mock
 
 liquibase:
     contexts: dev

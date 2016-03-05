@@ -33,7 +33,11 @@ public class JHipsterProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
+    private final SmsNotificationProperties smsNotificationProperties = new SmsNotificationProperties();
 
+    public SmsNotificationProperties getSmsNotification() {
+        return smsNotificationProperties;
+    }
 
     public Async getAsync() {
         return async;
@@ -69,6 +73,43 @@ public class JHipsterProperties {
 
     public CorsConfiguration getCors() {
         return cors;
+    }
+
+
+
+
+
+    public static class SmsNotificationProperties {
+
+        private String login;
+
+        private String password;
+
+        private String URL;
+
+        public String getLogin() {
+            return login;
+        }
+
+        public void setLogin(String login) {
+            this.login = login;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getURL() {
+            return URL;
+        }
+
+        public void setURL(String URL) {
+            this.URL = URL;
+        }
     }
 
 

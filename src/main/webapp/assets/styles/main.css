@@ -11,10 +11,7 @@ html {
   -webkit-text-size-adjust: 100%; }
 
 body {
-  margin: 0; 
-  background:url('../images/body-bg.jpg') no-repeat top left;
-  background-size:cover;
-}
+  margin: 0; }
 
 article,
 aside,
@@ -5825,7 +5822,7 @@ button.close {
     display: none !important; } }
 
 body {
-  /*background: #fafafa;*/
+  background: #fafafa;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333; }
 
@@ -5833,7 +5830,6 @@ body {
   display: none !important; }
 
 .development {
-  display:none;
   position: absolute;
   width: 149px;
   height: 149px;
