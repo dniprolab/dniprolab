@@ -55,14 +55,14 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
      */
     @Override
     public void notifyUser(String type) {
-        if(serviceEnabled = false){
+        if(serviceEnabled == false){
             return;
-        }
+            }
         String login = SecurityUtils.getCurrentUserLogin();
         User user = userRepository.findOneByLogin(login).get();
         logger.debug("Invoke notifyUser method with user {}, message type {}", user.getLogin(), type);
         Locale locale = Locale.forLanguageTag(user.getLangKey());
-        String telNumber = user.getEmail(); //TODO add new field to user entity!
+        String telNumber = user.getEmail();                     //TODO add new field to user entity!
         String request = getRequestStringToSendSms(type, locale, telNumber);
         logger.info("Sending sms notification request was sent to service, message recipient is user {}, message type is {}", user.getLogin(), type);
         String rawResponse = requestBuilder.doXMLQuery(request);
@@ -170,4 +170,42 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         return stringBuilder.toString();
     }
 
+    public SmsNotificationTurboSmsImpl() {
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public static MessageSource getMessageSource() {
+        return messageSource;
+    }
+
+    public static void setMessageSource(MessageSource messageSource) {
+        SmsNotificationTurboSmsImpl.messageSource = messageSource;
+    }
+
+    public RequestBuilder getRequestBuilder() {
+        return requestBuilder;
+    }
+
+    public void setRequestBuilder(RequestBuilder requestBuilder) {
+        this.requestBuilder = requestBuilder;
+    }
+
+    public boolean isServiceEnabled() {
+        return serviceEnabled;
+    }
+
+    public void setServiceEnabled(boolean serviceEnabled) {
+        this.serviceEnabled = serviceEnabled;
+    }
+
+    public static JHipsterProperties getjHipsterProperties() {
+        return jHipsterProperties;
+    }
 }

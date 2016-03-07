@@ -120,4 +120,12 @@ public class TurboSmsVendorConnection {
             httpURLConnection.disconnect();
         }
     }
+
+    public static HttpURLConnection getHttpURLConnection() {
+        return httpURLConnection;
+    }
+
+    public static void setHttpURLConnection(HttpURLConnection httpURLConnection) {
+        TurboSmsVendorConnection.httpURLConnection = httpURLConnection;
+    }
 }

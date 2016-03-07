@@ -45,9 +45,17 @@ public class RequestBuilder {
                     responseString.append(line);
                 }
             } catch (IOException e) {
-                logger.error("Exception in doXMLQueryMethod.", e);
+                logger.error("IOException in doXMLQueryMethod.", e);
             }
         TurboSmsVendorConnection.disconnect();
         return responseString.toString();
+    }
+
+    public JHipsterProperties getjHipsterProperties() {
+        return jHipsterProperties;
+    }
+
+    public void setjHipsterProperties(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
     }
 }
