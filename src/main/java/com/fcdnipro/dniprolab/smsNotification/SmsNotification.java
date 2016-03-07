@@ -1,9 +1,9 @@
-package com.fcdnipro.dniprolab.smsNotification;
+package com.fcdnipro.dniprolab.smsnotification;
 
 
 public interface SmsNotification {
 
-    public String notifyUser(String type);
+    public void notifyUser(String type);
 
     public String getBalance();
 

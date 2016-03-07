@@ -87,6 +87,16 @@ public class JHipsterProperties {
 
         private String URL;
 
+        private String applicationName;
+
+        public String getApplicationName() {
+            return applicationName;
+        }
+
+        public void setApplicationName(String applicationName) {
+            this.applicationName = applicationName;
+        }
+
         public String getLogin() {
             return login;
         }
@@ -111,7 +121,6 @@ public class JHipsterProperties {
             this.URL = URL;
         }
     }
-
 
     public static class Async {
 

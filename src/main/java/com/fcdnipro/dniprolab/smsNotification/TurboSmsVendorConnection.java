@@ -1,4 +1,4 @@
-package com.fcdnipro.dniprolab.smsNotification;
+package com.fcdnipro.dniprolab.smsnotification;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

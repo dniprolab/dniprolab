@@ -63,3 +63,4 @@ jhipster:
         login: mock
         password: mock
         URL: mock
+        applicationName: dnipro.lab
