@@ -45,7 +45,13 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     private final static String WRONG_MESSAGE_TYPE = "Wrong message type";
 
     /*
-    * Send sms
+    * Top level method to notify user by sending him sms
+    * Invoking service classes to get xml query, establish connection,
+    * send request and process response in well-read form
+    * Result should be logged for further control by administrator
+    * Current user getting from security utils class
+    * @param type - type of message(new message or video etc)
+    *
      */
     @Override
     public void notifyUser(String type) {
@@ -64,6 +70,10 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         logger.info("Notification service response after sending request to notify user {} with message type {} is: {}", user.getLogin(), type, parsedResponse);
     }
 
+    /*
+    * Top-level method for getting current account balance of sms service
+    * @return parsed response - response in well-read form
+     */
     @Override
     public String getBalance() {
         String request = getRequestStringToGetBalance();
@@ -72,6 +82,11 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         return parsedResponse;
     }
 
+    /*
+    * Top-level method for getting status of particular sms
+    * @param msgId - sms id
+    * @return response in well-read form
+     */
     @Override
     public String getStatus(String msgId) {
         String request = getRequestStringToGetSmsStatus(msgId);
@@ -80,6 +95,13 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         return parsedResponse;
     }
 
+    /*
+    * Create a string with XML query for sending sms
+    * @param type - type of message
+    * @param locale - user's locale
+    * @param telNumber
+    * @return string with query
+     */
     private static String getRequestStringToSendSms(String type, Locale locale,
                                                     String telNumber){
         String text = null;
@@ -110,7 +132,9 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
             sb.append("</SMS>");
         return sb.toString();
     }
-
+    /*
+    * Creates a string with XML query for getting account balance
+     */
     private static String getRequestStringToGetBalance(){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -126,6 +150,11 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         return stringBuilder.toString();
     }
 
+    /*
+    * Creates a string with XML query for getting message status details
+    * @param msgId - sms id
+    * @return string with query
+     */
     private static String getRequestStringToGetSmsStatus(String msgId){
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Utilize class for processing request raw string
+ * Utilize class for processing request "raw" string to well-read form
  */
 public final class SmsNotificationUtils {
 
@@ -67,6 +67,10 @@ public final class SmsNotificationUtils {
         return DELIVERY_STATUS + convertedStatusForm + AVAILABLE_CREDITS + availableCredits;
     }
 
+    /*
+    * Parses string with "raw" response to well-read form
+    * @param messageStatusResponse - response string
+     */
     public static String parseMessageStatusResponse(String messageStatusResponse){
         //typical service response is: <?xml version="1.0" encoding="UTF-8"?><deliveryreport><message id="1299" sentdate="0000-00-00 00:00:00" donedate="0000-00-00 00:00:00" status="0" /></deliveryreport>
 
@@ -85,6 +89,6 @@ public final class SmsNotificationUtils {
                                                             messageStatusResponse.lastIndexOf("\""));
 
         String status = messageStatuses.get(status_code);
-        return SEND_DATE_TEXT + send_date + DONE_DATE_TEXT + done_date + STATUS + status;
+        return SEND_DATE_TEXT + send_date + DONE_DATE_TEXT + done_date + STATUS_TEXT + status;
     }
 }

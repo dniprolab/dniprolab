@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Connection with sms service vendor web interface
+ * Connection with sms service API
  */
 public class TurboSmsVendorConnection {
 
@@ -31,12 +31,13 @@ public class TurboSmsVendorConnection {
 
     /*
     * Makes HTTP request using POST method to specified URL
-    * @param requestURL
+    * @param requestURL - message service URL
     * @param params - map contains POST data in pairs key-value
     * @throws IOException
     * @return httpURLConnection instance
      */
     public static HttpURLConnection sendPostRequest(String requestUrl, Map<String, String> params) throws IOException {
+        logger.debug("Invoke sendPostRequest method");
         URL url = new URL(requestUrl);
         httpURLConnection = (HttpURLConnection) url.openConnection();
         httpURLConnection.setUseCaches(USE_CACHES);
@@ -65,11 +66,17 @@ public class TurboSmsVendorConnection {
         return httpURLConnection;
     }
 
+    /*
+    * Pulls string with response from httpURLConnection
+    * @throws IOException
+     */
     public static String readSingleLine() throws IOException {
+        logger.debug("Invoke readSingleLine method.");
         InputStream inputStream = null;
         if(httpURLConnection != null){
             inputStream = httpURLConnection.getInputStream();
         }else {
+            logger.error("HttpURLConnection not established.");
             throw new IOException(CONNECTION_ERROR);
         }
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -78,11 +85,18 @@ public class TurboSmsVendorConnection {
         return response;
     }
 
+    /*
+    * Pulls multiple strings from httpURLConnection
+    * @return divided by lines response in a string array
+    * @throws IOException
+     */
     public static String[] readMultipleLinesResponse() throws IOException {
+        logger.debug("Invoke readMultipleLinesResponse method.");
         InputStream inputStream = null;
         if (httpURLConnection != null) {
             inputStream = httpURLConnection.getInputStream();
         } else {
+            logger.error("HttpURLConnection is not established.");
             throw new IOException(CONNECTION_ERROR);
         }
 
@@ -98,6 +112,9 @@ public class TurboSmsVendorConnection {
         return (String[]) response.toArray(new String[0]);
     }
 
+    /*
+    * Disconnect method
+     */
     public static void disconnect() {
         if(httpURLConnection != null){
             httpURLConnection.disconnect();
