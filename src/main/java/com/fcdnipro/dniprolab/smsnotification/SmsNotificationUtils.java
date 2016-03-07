@@ -28,7 +28,7 @@ public final class SmsNotificationUtils {
     }
 
     private static final Map<String, String> messageStatuses = new HashMap<>();
-    {
+    static {
         messageStatuses.put("SENT", "Message was sent.");
         messageStatuses.put("NOT_DELIVERED", "Message wasn't delivered.");
         messageStatuses.put("DELIVERED", "Message was delivered");
