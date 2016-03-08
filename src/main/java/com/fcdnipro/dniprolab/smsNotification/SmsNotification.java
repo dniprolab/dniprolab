@@ -7,6 +7,6 @@ public interface SmsNotification {
 
     public String getBalance();
 
-    public String getStatus(String msgId);
+    public String getMessageStatus(String msgId);
 
 }
