@@ -3,7 +3,7 @@ package com.fcdnipro.dniprolab.smsnotification;
 
 public interface SmsNotification {
 
-    public void notifyUser(String type);
+    public String notifyUser(String type);
 
     public String getBalance();
 

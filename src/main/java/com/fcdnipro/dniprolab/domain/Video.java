@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 /**
@@ -16,7 +17,7 @@ import java.time.ZonedDateTime;
 @Table(name = "video")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "video")
-public class Video {
+public class Video implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +30,7 @@ public class Video {
 
     @NotNull
     @Size(min = 2, max = 128)
-    @Column(name = "opponent", length = 128, nullable = false)
+    @Column(name = "reference", length = 128, nullable = false)
     private String reference;
 
     @Size(max = 256)

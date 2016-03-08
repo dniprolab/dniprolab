@@ -54,9 +54,9 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     *
      */
     @Override
-    public void notifyUser(String type) {
+    public String notifyUser(String type) {
         if(serviceEnabled == false){
-            return;
+            return null;
             }
         String login = SecurityUtils.getCurrentUserLogin();
         User user = userRepository.findOneByLogin(login).get();
@@ -68,6 +68,7 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         String rawResponse = requestBuilder.doXMLQuery(request);
         String parsedResponse = SmsNotificationUtils.parseDeliveryOrBalanceReport(rawResponse);
         logger.info("Notification service response after sending request to notify user {} with message type {} is: {}", user.getLogin(), type, parsedResponse);
+        return parsedResponse;
     }
 
     /*
