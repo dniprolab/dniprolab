@@ -33,6 +33,7 @@ angular.module('dniprolabApp')
             return {
                 activated: account.activated,
                 email: account.email,
+                telNumber: account.telNumber,
                 firstName: account.firstName,
                 langKey: account.langKey,
                 lastName: account.lastName,

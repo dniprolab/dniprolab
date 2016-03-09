@@ -90,8 +90,8 @@ public class UserService {
             });
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-        String langKey) {
+    public User createUserInformation(String login, String password, String firstName,
+                                      String lastName, String email, String telNumber, String langKey) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
@@ -103,6 +103,7 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
+        newUser.setTelNumber(telNumber);
         newUser.setLangKey(langKey);
         // new user is not active
         newUser.setActivated(false);
@@ -122,6 +123,7 @@ public class UserService {
         user.setFirstName(managedUserDTO.getFirstName());
         user.setLastName(managedUserDTO.getLastName());
         user.setEmail(managedUserDTO.getEmail());
+        user.setTelNumber(managedUserDTO.getTelNumber());
         if (managedUserDTO.getLangKey() == null) {
             user.setLangKey("en"); // default language is English
         } else {
@@ -145,11 +147,13 @@ public class UserService {
         return user;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String email, String langKey) {
+    public void updateUserInformation(String firstName, String lastName, String email,
+                                      String telNumber, String langKey) {
         userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
+            u.setTelNumber(telNumber);
             u.setLangKey(langKey);
             userRepository.save(u);
             userSearchRepository.save(u);

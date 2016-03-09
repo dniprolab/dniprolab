@@ -43,7 +43,9 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
-            "email.placeholder": "Your e-mail"
+            "telNumber": "Telephone Number",
+            "email.placeholder": "Your e-mail",
+            "telNumber.placeholder": "Mobile phone"
         },
         "messages": {
             "info": {
@@ -70,6 +72,9 @@
                     "invalid": "Your e-mail is invalid.",
                     "minlength": "Your e-mail is required to be at least 5 characters.",
                     "maxlength": "Your e-mail cannot be longer than 50 characters."
+                },
+                "telNumber": {
+                    "maxlength": "Your telephone number can not be more than 20 characters"
                 }
             }
         },

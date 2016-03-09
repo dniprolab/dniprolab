@@ -18,6 +18,7 @@
         "firstName": "First name",
         "lastName": "Last name",
         "email": "Email",
+        "telNumber": "Telephone number",
         "activated": "Activated",
         "deactivated": "Deactivated",
         "profiles": "Profiles",

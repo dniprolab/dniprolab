@@ -35,6 +35,9 @@ public class UserDTO {
     @Size(min = 5, max = 100)
     private String email;
 
+    @Size(max = 20)
+    private String telNumber;
+
     private boolean activated = false;
 
     @Size(min = 2, max = 5)
@@ -47,19 +50,20 @@ public class UserDTO {
 
     public UserDTO(User user) {
         this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
-            user.getEmail(), user.getActivated(), user.getLangKey(),
+            user.getEmail(), user.getTelNumber(), user.getActivated(), user.getLangKey(),
             user.getAuthorities().stream().map(Authority::getName)
                 .collect(Collectors.toSet()));
     }
 
     public UserDTO(String login, String password, String firstName, String lastName,
-        String email, boolean activated, String langKey, Set<String> authorities) {
+        String email, String telNumber, boolean activated, String langKey, Set<String> authorities) {
 
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.telNumber = telNumber;
         this.activated = activated;
         this.langKey = langKey;
         this.authorities = authorities;
@@ -97,6 +101,14 @@ public class UserDTO {
         return authorities;
     }
 
+    public String getTelNumber() {
+        return telNumber;
+    }
+
+    public void setTelNumber(String telNumber) {
+        this.telNumber = telNumber;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -105,6 +117,7 @@ public class UserDTO {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", telNumber='" + telNumber + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +
             ", authorities=" + authorities +

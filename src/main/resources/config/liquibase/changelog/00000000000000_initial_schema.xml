@@ -32,6 +32,7 @@
             <column name="email" type="varchar(100)">
                 <constraints unique="true"/>
             </column>
+            <column name="tel_number" type="varchar(20)" />
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
             </column>
@@ -50,7 +51,7 @@
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
         </createTable>
-        
+
         <createIndex indexName="idx_user_login"
             tableName="jhi_user"
             unique="true">
@@ -62,7 +63,7 @@
             unique="true">
             <column name="email" type="varchar(100)"/>
         </createIndex>
-        
+
         <createTable tableName="jhi_authority">
             <column name="name" type="varchar(50)">
                 <constraints primaryKey="true" nullable="false"/>
@@ -170,7 +171,7 @@
                                  constraintName="fk_evt_pers_audit_evt_data"
                                  referencedColumnNames="event_id"
                                  referencedTableName="jhi_persistent_audit_event"/>
-    
+
     </changeSet>
-    
+
 </databaseChangeLog>
