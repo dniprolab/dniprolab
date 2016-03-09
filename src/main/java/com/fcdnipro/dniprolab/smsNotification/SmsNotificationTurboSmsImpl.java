@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.Locale;
@@ -18,6 +19,7 @@ import java.util.Locale;
  * get balance on service account, get status of notification (in this partial case vendor is turbosms.com.ua)
  */
 @Service
+@Transactional
 public class SmsNotificationTurboSmsImpl implements SmsNotification {
 
     private final static Logger logger = LoggerFactory.getLogger(SmsNotificationTurboSmsImpl.class);
@@ -26,7 +28,7 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     private UserRepository userRepository;
 
     @Inject
-    private static MessageSource messageSource;
+    private MessageSource messageSource;
 
     @Inject
     private RequestBuilder requestBuilder;
@@ -40,9 +42,12 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     private final static String NEW_VIDEO_TYPE = "video";
     private final static String NEW_ADVERTISEMENT_TYPE = "advertisement";
 
-    private final String serviceLogin = jHipsterProperties.getSmsNotification().getLogin();
-    private final String servicePassword = jHipsterProperties.getSmsNotification().getPassword();
-    private final String applicationName = jHipsterProperties.getSmsNotification().getApplicationName();
+//    private String serviceLogin = jHipsterProperties.getSmsNotification().getLogin();
+//    private String servicePassword = jHipsterProperties.getSmsNotification().getPassword();
+//    private String applicationName = jHipsterProperties.getSmsNotification().getApplicationName();
+    private String serviceLogin = "mock";
+    private String servicePassword = "mock";
+    private String applicationName = "mock";
 
     private final static String WRONG_MESSAGE_TYPE = "Wrong message type";
 
@@ -185,6 +190,10 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     public SmsNotificationTurboSmsImpl() {
     }
 
+    public void setjHipsterProperties(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
+    }
+
     public UserRepository getUserRepository() {
         return userRepository;
     }
@@ -193,12 +202,12 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         this.userRepository = userRepository;
     }
 
-    public static MessageSource getMessageSource() {
+    public MessageSource getMessageSource() {
         return messageSource;
     }
 
-    public static void setMessageSource(MessageSource messageSource) {
-        SmsNotificationTurboSmsImpl.messageSource = messageSource;
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
     }
 
     public RequestBuilder getRequestBuilder() {

@@ -81,13 +81,13 @@ public class JHipsterProperties {
 
     public static class SmsNotificationProperties {
 
-        private String login;
+        private String login = "mock";
 
-        private String password;
+        private String password = "mock";
 
-        private String URL;
+        private String URL = "mock";
 
-        private String applicationName;
+        private String applicationName = "dnipro.lab";
 
         public String getApplicationName() {
             return applicationName;
