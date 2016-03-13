@@ -39,7 +39,7 @@ public class RequestBuilder {
         Map<String, String> params = new HashMap();
         params.put(CONNECTION_PARAM, xml);
             try {
-                TurboSmsVendorConnection.sendPostRequest(jHipsterProperties.getSmsNotification().getURL(), params);
+                TurboSmsVendorConnection.sendPostRequest(jHipsterProperties.getSmsNotificationProperties().getURL(), params);
                 String[] response = TurboSmsVendorConnection.readMultipleLinesResponse();
                 for (String line : response) {
                     responseString.append(line);

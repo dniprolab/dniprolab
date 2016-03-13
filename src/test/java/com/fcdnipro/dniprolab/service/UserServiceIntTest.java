@@ -8,10 +8,15 @@ import com.fcdnipro.dniprolab.repository.UserRepository;
 import java.time.ZonedDateTime;
 import com.fcdnipro.dniprolab.service.util.RandomUtil;
 import java.time.LocalDate;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -70,7 +75,7 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
+        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost","+380505145255", "en-US");
         Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
         assertThat(maybeUser.isPresent()).isFalse();
         userRepository.delete(user);
@@ -78,7 +83,7 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatResetKeyMustNotBeOlderThan24Hours() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
+        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost","+380505145255", "en-US");
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         String resetKey = RandomUtil.generateResetKey();
@@ -97,7 +102,7 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatResetKeyMustBeValid() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
+        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost","+380505145255", "en-US");
 
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(25);
         user.setActivated(true);
@@ -111,7 +116,7 @@ public class UserServiceIntTest {
 
     @Test
     public void assertThatUserCanResetPassword() {
-        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
+        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost","+380505145255", "en-US");
         String oldPassword = user.getPassword();
         ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
         String resetKey = RandomUtil.generateResetKey();
@@ -126,6 +131,16 @@ public class UserServiceIntTest {
         assertThat(maybeUser.get().getPassword()).isNotEqualTo(oldPassword);
 
         userRepository.delete(user);
+    }
+
+    @Test
+    public void assertThatCurrentUserIsPresent(){
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
+        SecurityContextHolder.setContext(securityContext);
+
+        User user = userService.getCurrentUser();
+        Assert.assertEquals(user.getLogin(), "admin");
     }
 
     @Test

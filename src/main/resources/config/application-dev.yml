@@ -50,11 +50,6 @@ spring:
         cache-seconds: 1
     thymeleaf:
         cache: false
-    smsNotificationProperties:
-        login: mock
-        password: mock
-        URL: mock
-        applicationName: dnipro.lab
 
 liquibase:
     contexts: dev
@@ -73,6 +68,11 @@ jhipster:
             maxBytesLocalHeap: 16M
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: dniprolab@localhost
+    smsNotificationProperties:
+        login: mock
+        password: mock
+        URL: mock
+        applicationName: dnipro.lab
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         spark:
@@ -84,3 +84,4 @@ jhipster:
             host: localhost
             port: 2003
             prefix: dniprolab
+

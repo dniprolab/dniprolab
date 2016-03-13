@@ -24,7 +24,7 @@ public final class SmsNotificationUtils {
         deliveryMessageStatusCodes.put("-2", "Wrong XML syntax.");
         deliveryMessageStatusCodes.put("-3", "Not enough credits on account balance.");
         deliveryMessageStatusCodes.put("1", "Message was delivered successfully.");
-        deliveryMessageStatusCodes.put("0", "Request balance status is OK");
+        deliveryMessageStatusCodes.put("0", "Request balance status is OK.");
     }
 
     private static final Map<String, String> messageStatuses = new HashMap<>();
@@ -51,7 +51,7 @@ public final class SmsNotificationUtils {
      * @return string in well-read form
      */
     public static String parseDeliveryOrBalanceReport(String serverResponse){
-        //typical service response is: <?xml version="1.0" encoding="UTF-8"?><RESPONSE><status>2</status><credits>0.682</credits></RESPONSE>
+        //typical service response is: <?xml version="1.0" encoding="UTF-8"?><RESPONSE><status>1</status><credits>0.682</credits></RESPONSE>
         //AUTH_FAILED -1 Wrong login or password
         //XML_ERROR -2 Wrong XML syntax
         //NOT_ENOUGH_CREDITS -3 Not enough credits on account balance
@@ -64,7 +64,7 @@ public final class SmsNotificationUtils {
         String availableCredits = serverResponse.substring(serverResponse.indexOf(CREDITS_PREFIX) + CREDITS_PREFIX.length(),
                                                                             serverResponse.indexOf(CREDITS_SUFFIX));
         String convertedStatusForm = deliveryMessageStatusCodes.get(statusCode);
-        return DELIVERY_STATUS + convertedStatusForm + AVAILABLE_CREDITS + availableCredits;
+        return DELIVERY_STATUS + convertedStatusForm + " " + AVAILABLE_CREDITS + availableCredits;
     }
 
     /*
@@ -89,6 +89,6 @@ public final class SmsNotificationUtils {
                                                             messageStatusResponse.lastIndexOf("\""));
 
         String status = messageStatuses.get(status_code);
-        return SEND_DATE_TEXT + send_date + DONE_DATE_TEXT + done_date + STATUS_TEXT + status;
+        return SEND_DATE_TEXT + send_date + " " + DONE_DATE_TEXT + done_date + " " + STATUS_TEXT + status;
     }
 }

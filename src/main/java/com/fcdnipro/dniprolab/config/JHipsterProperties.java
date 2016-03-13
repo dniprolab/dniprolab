@@ -35,7 +35,7 @@ public class JHipsterProperties {
 
     private final SmsNotificationProperties smsNotificationProperties = new SmsNotificationProperties();
 
-    public SmsNotificationProperties getSmsNotification() {
+    public SmsNotificationProperties getSmsNotificationProperties() {
         return smsNotificationProperties;
     }
 

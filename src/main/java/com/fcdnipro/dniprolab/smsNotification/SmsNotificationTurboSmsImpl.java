@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.Locale;
 
-//TODO add telephone number field to entity and web form
 /**
  * Service class which gives opportunity send sms notifications to user's mobile phone,
  * get balance on service account, get status of notification (in this partial case vendor is turbosms.com.ua)
@@ -34,37 +33,32 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     @Inject
     private RequestBuilder requestBuilder;
 
-    private boolean serviceEnabled;
+    private boolean serviceEnabled = false;
 
     @Inject
     private JHipsterProperties jHipsterProperties;
 
-    private final static String NEW_MESSAGE_TYPE = "message";
-    private final static String NEW_VIDEO_TYPE = "video";
-    private final static String NEW_ADVERTISEMENT_TYPE = "advertisement";
-
     private final static String WRONG_MESSAGE_TYPE = "Wrong message type";
+    private final static String SERVICE_DISABLED = "Sms notification service disabled";
 
     /*
     * Top level method to notify user by sending him sms
     * Invoking service classes to get xml query, establish connection,
     * send request and process response in well-read form
     * Result should be logged for further control by administrator
-    * Current user getting from security utils class
     * @param type - type of message(new message or video etc)
-    *
+    * @return string with response in well-read form or 'disabled' message
      */
     @Override
-    public String notifyUser(String type) {
-        if(!serviceEnabled){
-            return null;
+    public String notifyUser(NotificationType notificationType) {
+        if(serviceEnabled == false){
+            return SERVICE_DISABLED;
         }
-        logger.debug("Invoke notifyUser method, message type {}.", type);
-        String request = this.getRequestStringToSendSms(type);
-        logger.info("Sending sms notification request was sent to service");
+        logger.debug("Invoke notifyUser method, message type {}.", notificationType.toString());
+        String request = this.getRequestStringToSendSms(notificationType);
+        logger.info("Sms notification request has been sent to service");
         String rawResponse = requestBuilder.doXMLQuery(request);
         String parsedResponse = SmsNotificationUtils.parseDeliveryOrBalanceReport(rawResponse);
-        logger.info("Notification service response after sending request to notify user {} with message type {} is: {}", type, parsedResponse);
         return parsedResponse;
     }
 
@@ -93,36 +87,39 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
 
     /*
     * Generate a string with XML query for sending sms
-    * @param type - type of message
-    * @param locale - user's locale
-    * @param telNumber
+    * @param notificationType - type of message
     * @return string with query
      */
-    private String getRequestStringToSendSms(String type){
-        User user = userService.getUserWithAuthorities();
+    private String getRequestStringToSendSms(NotificationType notificationType){
+        User user = userService.getCurrentUser();
         logger.debug("Generation query to send notification sms to user {}", user);
         Locale locale = Locale.forLanguageTag(user.getLangKey());
-        String telNumber = user.getEmail(); //TODO add mobile telephone field to user entity
+        String telNumber = user.getTelNumber();
         String text = null;
-        switch (type){
-            case NEW_ADVERTISEMENT_TYPE : text = messageSource.getMessage("sms.notification.newAdvertisement", null, locale);
-            case NEW_MESSAGE_TYPE : text = messageSource.getMessage("sms.notification.newMessage", null, locale);
-            case NEW_VIDEO_TYPE : text = messageSource.getMessage("sms.notification.newVideo", null, locale);
+        if(notificationType == NotificationType.ADVERTISEMENT) {
+            text = messageSource.getMessage("sms.notification.newAdvertisement", null, locale);
         }
-        if(text == null){
+        else if(notificationType == NotificationType.MESSAGE){
+            text = messageSource.getMessage("sms.notification.newMessage", null, locale);
+        }
+        else if(notificationType == NotificationType.VIDEO){
+            text = messageSource.getMessage("sms.notification.newVideo", null, locale);
+        }
+        else {
             throw new RuntimeException(WRONG_MESSAGE_TYPE);
         }
         StringBuilder sb = new StringBuilder();
+            sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             sb.append("<SMS>");
             sb.append("<operations>");
             sb.append("<operation>SEND</operation>");
             sb.append("</operations>");
             sb.append("<authentification>");
-            sb.append("<username>" + jHipsterProperties.getSmsNotification().getLogin() + "</username>");
-            sb.append("<password>" + jHipsterProperties.getSmsNotification().getPassword() + "</password>");
+            sb.append("<username>" + jHipsterProperties.getSmsNotificationProperties().getLogin() + "</username>");
+            sb.append("<password>" + jHipsterProperties.getSmsNotificationProperties().getPassword() + "</password>");
             sb.append("</authentification>");
             sb.append("<message>");
-            sb.append("<sender>" + jHipsterProperties.getSmsNotification().getApplicationName() + "</sender>");
+            sb.append("<sender>" + jHipsterProperties.getSmsNotificationProperties().getApplicationName() + "</sender>");
             sb.append("<text>" + text + "</text>");
             sb.append("</message>");
             sb.append("<numbers>");
@@ -143,9 +140,9 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         stringBuilder.append("<operation>BALANCE</operation>");
         stringBuilder.append("</operations>");
         stringBuilder.append("<authentification>");
-        stringBuilder.append("<username>" + jHipsterProperties.getSmsNotification().getLogin() + "</username>");
-        stringBuilder.append("<password>" + jHipsterProperties.getSmsNotification().getPassword() + "</password>");
-        stringBuilder.append("</authentification> ");
+        stringBuilder.append("<username>" + jHipsterProperties.getSmsNotificationProperties().getLogin() + "</username>");
+        stringBuilder.append("<password>" + jHipsterProperties.getSmsNotificationProperties().getPassword() + "</password>");
+        stringBuilder.append("</authentification>");
         stringBuilder.append("</SMS>");
         return stringBuilder.toString();
     }
@@ -155,14 +152,14 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     * @param msgId - sms id
     * @return string with query
      */
-    private String getRequestStringToGetSmsStatus(String msgId){
-        logger.debug("Generation query to get message id: {}", msgId);
+    public String getRequestStringToGetSmsStatus(String msgId){
+        logger.debug("Generation query to get message status, id: {}", msgId);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
         stringBuilder.append("<SMS><operations><operation>GETSTATUS</operation></operations>");
         stringBuilder.append("<authentification>");
-        stringBuilder.append("<username>" + jHipsterProperties.getSmsNotification().getLogin() + "</username>");
-        stringBuilder.append("<password>" + jHipsterProperties.getSmsNotification().getPassword() + "</password>");
+        stringBuilder.append("<username>" + jHipsterProperties.getSmsNotificationProperties().getLogin() + "</username>");
+        stringBuilder.append("<password>" + jHipsterProperties.getSmsNotificationProperties().getPassword() + "</password>");
         stringBuilder.append("</authentification>");
         stringBuilder.append("<statistics>");
         stringBuilder.append("<messageid>" + msgId + "</messageid>");
