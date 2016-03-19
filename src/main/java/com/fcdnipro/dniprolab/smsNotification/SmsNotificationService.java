@@ -1,7 +1,7 @@
-package com.fcdnipro.dniprolab.smsnotification;
+package com.fcdnipro.dniprolab.smsNotification;
 
 
-public interface SmsNotification {
+public interface SmsNotificationService {
 
     public String notifyUser(NotificationType type);
 

@@ -3,6 +3,8 @@ package com.fcdnipro.dniprolab.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.fcdnipro.dniprolab.domain.Advertisement;
 import com.fcdnipro.dniprolab.service.AdvertisementService;
+import com.fcdnipro.dniprolab.smsNotification.NotificationType;
+import com.fcdnipro.dniprolab.smsNotification.SmsNotificationService;
 import com.fcdnipro.dniprolab.web.rest.util.HeaderUtil;
 import com.fcdnipro.dniprolab.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -34,10 +36,15 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class AdvertisementResource {
 
     private final Logger log = LoggerFactory.getLogger(AdvertisementResource.class);
-        
+
+    private final static NotificationType notificationType = NotificationType.ADVERTISEMENT;
+
+    @Inject
+    SmsNotificationService smsNotificationService;
+
     @Inject
     private AdvertisementService advertisementService;
-    
+
     /**
      * POST  /advertisements -> Create a new advertisement.
      */
@@ -51,6 +58,9 @@ public class AdvertisementResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("advertisement", "idexists", "A new advertisement cannot already have an ID")).body(null);
         }
         Advertisement result = advertisementService.save(advertisement);
+
+        log.info(smsNotificationService.notifyUser(notificationType));
+
         return ResponseEntity.created(new URI("/api/advertisements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("advertisement", result.getId().toString()))
             .body(result);
@@ -84,7 +94,7 @@ public class AdvertisementResource {
     public ResponseEntity<List<Advertisement>> getAllAdvertisements(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Advertisements");
-        Page<Advertisement> page = advertisementService.findAll(pageable); 
+        Page<Advertisement> page = advertisementService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/advertisements");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

@@ -5,6 +5,8 @@ import com.fcdnipro.dniprolab.domain.Video;
 import com.fcdnipro.dniprolab.repository.search.VideoSearchRepository;
 import com.fcdnipro.dniprolab.security.SecurityUtils;
 import com.fcdnipro.dniprolab.service.VideoService;
+import com.fcdnipro.dniprolab.smsNotification.NotificationType;
+import com.fcdnipro.dniprolab.smsNotification.SmsNotificationService;
 import com.fcdnipro.dniprolab.web.rest.util.HeaderUtil;
 import com.fcdnipro.dniprolab.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -36,6 +38,11 @@ public class VideoController {
 
     private final  static Logger logger = LoggerFactory.getLogger(VideoController.class);
 
+    private final static NotificationType notificationType = NotificationType.VIDEO;
+
+    @Inject
+    SmsNotificationService smsNotificationService;
+
     @Inject
     private VideoService videoService;
 
@@ -55,6 +62,9 @@ public class VideoController {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("video", "idexists", "A new video cannot already have an ID")).body(null);
         }
         Video result = videoService.save(video);
+
+        logger.info(smsNotificationService.notifyUser(notificationType));
+
         return ResponseEntity.created(new URI("/api/videos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("video", result.getId().toString()))
             .body(result);

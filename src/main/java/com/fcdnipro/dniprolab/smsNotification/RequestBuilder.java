@@ -1,4 +1,4 @@
-package com.fcdnipro.dniprolab.smsnotification;
+package com.fcdnipro.dniprolab.smsNotification;
 
 import com.fcdnipro.dniprolab.config.JHipsterProperties;
 import org.slf4j.Logger;
@@ -39,15 +39,15 @@ public class RequestBuilder {
         Map<String, String> params = new HashMap();
         params.put(CONNECTION_PARAM, xml);
             try {
-                TurboSmsVendorConnection.sendPostRequest(jHipsterProperties.getSmsNotificationProperties().getURL(), params);
-                String[] response = TurboSmsVendorConnection.readMultipleLinesResponse();
+                EpochtaVendorConnection.sendPostRequest(jHipsterProperties.getSmsNotificationProperties().getURL(), params);
+                String[] response = EpochtaVendorConnection.readMultipleLinesResponse();
                 for (String line : response) {
                     responseString.append(line);
                 }
             } catch (IOException e) {
                 logger.error("IOException in doXMLQueryMethod.", e);
             }
-        TurboSmsVendorConnection.disconnect();
+        EpochtaVendorConnection.disconnect();
         return responseString.toString();
     }
 

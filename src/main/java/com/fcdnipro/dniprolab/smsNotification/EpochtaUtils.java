@@ -1,4 +1,4 @@
-package com.fcdnipro.dniprolab.smsnotification;
+package com.fcdnipro.dniprolab.smsNotification;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Utilize class for processing request "raw" string to well-read form
  */
-public final class SmsNotificationUtils {
+public final class EpochtaUtils {
 
     private final static String STATUS_PREFIX = "<status>";
     private final static String STATUS_SUFFIX = "</status>";
@@ -23,8 +23,8 @@ public final class SmsNotificationUtils {
         deliveryMessageStatusCodes.put("-1", "Authentication failed.");
         deliveryMessageStatusCodes.put("-2", "Wrong XML syntax.");
         deliveryMessageStatusCodes.put("-3", "Not enough credits on account balance.");
-        deliveryMessageStatusCodes.put("1", "Message was delivered successfully.");
-        deliveryMessageStatusCodes.put("0", "Request balance status is OK.");
+        deliveryMessageStatusCodes.put("1", "Message has been delivered successfully.");
+        deliveryMessageStatusCodes.put("0", "OK.");
     }
 
     private static final Map<String, String> messageStatuses = new HashMap<>();

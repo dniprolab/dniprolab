@@ -3,6 +3,8 @@ package com.fcdnipro.dniprolab.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.fcdnipro.dniprolab.domain.Message;
 import com.fcdnipro.dniprolab.service.MessageService;
+import com.fcdnipro.dniprolab.smsNotification.NotificationType;
+import com.fcdnipro.dniprolab.smsNotification.SmsNotificationService;
 import com.fcdnipro.dniprolab.web.rest.util.HeaderUtil;
 import com.fcdnipro.dniprolab.web.rest.util.PaginationUtil;
 import com.fcdnipro.dniprolab.web.rest.dto.MessageDTO;
@@ -40,6 +42,11 @@ public class MessageResource {
 
     private final Logger log = LoggerFactory.getLogger(MessageResource.class);
 
+    private final static NotificationType notificationType = NotificationType.ADVERTISEMENT;
+
+    @Inject
+    SmsNotificationService smsNotificationService;
+
     @Inject
     private MessageService messageService;
 
@@ -59,6 +66,9 @@ public class MessageResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("message", "idexists", "A new message cannot already have an ID")).body(null);
         }
         MessageDTO result = messageService.save(messageDTO);
+
+        log.info(smsNotificationService.notifyUser(notificationType));
+
         return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("message", result.getId().toString()))
             .body(result);

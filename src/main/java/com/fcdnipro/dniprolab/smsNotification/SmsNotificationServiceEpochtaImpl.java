@@ -1,9 +1,7 @@
-package com.fcdnipro.dniprolab.smsnotification;
+package com.fcdnipro.dniprolab.smsNotification;
 
 import com.fcdnipro.dniprolab.config.JHipsterProperties;
 import com.fcdnipro.dniprolab.domain.User;
-import com.fcdnipro.dniprolab.repository.UserRepository;
-import com.fcdnipro.dniprolab.security.SecurityUtils;
 import com.fcdnipro.dniprolab.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +18,9 @@ import java.util.Locale;
  */
 @Service
 @Transactional
-public class SmsNotificationTurboSmsImpl implements SmsNotification {
+public class SmsNotificationServiceEpochtaImpl implements SmsNotificationService {
 
-    private final static Logger logger = LoggerFactory.getLogger(SmsNotificationTurboSmsImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(SmsNotificationServiceEpochtaImpl.class);
 
     @Inject
     UserService userService;
@@ -31,7 +29,7 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     private MessageSource messageSource;
 
     @Inject
-    private RequestBuilder requestBuilder;
+    private com.fcdnipro.dniprolab.smsNotification.RequestBuilder requestBuilder;
 
     private boolean serviceEnabled = false;
 
@@ -58,7 +56,7 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         String request = this.getRequestStringToSendSms(notificationType);
         logger.info("Sms notification request has been sent to service");
         String rawResponse = requestBuilder.doXMLQuery(request);
-        String parsedResponse = SmsNotificationUtils.parseDeliveryOrBalanceReport(rawResponse);
+        String parsedResponse = EpochtaUtils.parseDeliveryOrBalanceReport(rawResponse);
         return parsedResponse;
     }
 
@@ -70,7 +68,7 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     public String getBalance() {
         String request = this.getRequestStringToGetBalance();
         String rawResponse = requestBuilder.doXMLQuery(request);
-        return SmsNotificationUtils.parseDeliveryOrBalanceReport(rawResponse);
+        return EpochtaUtils.parseDeliveryOrBalanceReport(rawResponse);
     }
 
     /*
@@ -82,7 +80,7 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
     public String getMessageStatus(String msgId) {
         String request = getRequestStringToGetSmsStatus(msgId);
         String rawResponse = requestBuilder.doXMLQuery(request);
-        return SmsNotificationUtils.parseMessageStatusResponse(rawResponse);
+        return EpochtaUtils.parseMessageStatusResponse(rawResponse);
     }
 
     /*
@@ -168,7 +166,7 @@ public class SmsNotificationTurboSmsImpl implements SmsNotification {
         return stringBuilder.toString();
     }
 
-    public SmsNotificationTurboSmsImpl() {
+    public SmsNotificationServiceEpochtaImpl() {
     }
 
     public UserService getUserService() {

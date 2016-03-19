@@ -1,4 +1,4 @@
-package com.fcdnipro.dniprolab.smsnotification;
+package com.fcdnipro.dniprolab.smsNotification;
 
 /**
  * Enum of types notification messages.

@@ -1,4 +1,4 @@
-package com.fcdnipro.dniprolab.smsnotification;
+package com.fcdnipro.dniprolab.smsNotification;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +15,9 @@ import java.util.Map;
 /**
  * Connection with sms service API
  */
-public class TurboSmsVendorConnection {
+public class EpochtaVendorConnection {
 
-    private final static Logger logger = LoggerFactory.getLogger(TurboSmsVendorConnection.class);
+    private final static Logger logger = LoggerFactory.getLogger(EpochtaVendorConnection.class);
 
     private final static Boolean USE_CACHES = false;
     private final static Boolean DO_INPUT = true;
@@ -126,6 +126,6 @@ public class TurboSmsVendorConnection {
     }
 
     public static void setHttpURLConnection(HttpURLConnection httpURLConnection) {
-        TurboSmsVendorConnection.httpURLConnection = httpURLConnection;
+        EpochtaVendorConnection.httpURLConnection = httpURLConnection;
     }
 }

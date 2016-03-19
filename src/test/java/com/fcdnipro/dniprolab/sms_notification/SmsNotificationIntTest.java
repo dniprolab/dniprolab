@@ -6,7 +6,7 @@ import com.fcdnipro.dniprolab.repository.UserRepository;
 import com.fcdnipro.dniprolab.service.UserService;
 import com.fcdnipro.dniprolab.smsnotification.NotificationType;
 import com.fcdnipro.dniprolab.smsnotification.RequestBuilder;
-import com.fcdnipro.dniprolab.smsnotification.SmsNotificationTurboSmsImpl;
+import com.fcdnipro.dniprolab.smsnotification.SmsNotificationEpochtaImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,9 +25,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import javax.inject.Inject;
@@ -59,7 +56,7 @@ public class SmsNotificationIntTest {
     @Inject
     UserRepository userRepository;
 
-    private SmsNotificationTurboSmsImpl smsNotificationTurboSms;
+    private SmsNotificationEpochtaImpl smsNotificationTurboSms;
 
     private static final String GET_BALANCE_QUERY = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SMS><operations><operation>BALANCE</operation></operations><authentification><username>mock</username><password>mock</password></authentification></SMS>";
     private static final String GET_MESSAGE_STATUS_QUERY = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SMS><operations><operation>GETSTATUS</operation></operations><authentification><username>mock</username><password>mock</password></authentification><statistics><messageid>999</messageid></statistics></SMS>";
@@ -74,7 +71,7 @@ public class SmsNotificationIntTest {
         MockitoAnnotations.initMocks(this);
 
 
-        smsNotificationTurboSms = new SmsNotificationTurboSmsImpl();
+        smsNotificationTurboSms = new SmsNotificationEpochtaImpl();
         ReflectionTestUtils.setField(smsNotificationTurboSms, "userService", userService);
         ReflectionTestUtils.setField(smsNotificationTurboSms, "jHipsterProperties", jHipsterProperties);
         ReflectionTestUtils.setField(smsNotificationTurboSms, "messageSource", messageSource);
