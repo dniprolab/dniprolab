@@ -7,7 +7,12 @@ $icon-font-path: "../../bower_components/bootstrap-sass/assets/fonts/bootstrap/"
 body {
     background: #fafafa;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+    color: #333333;
+    height:100vh;
+    background-image:url('../images/body-bg.jpg');
+    background-repeat:repeat-y;
+    background-position:center center;
+    background-size:cover;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -31,6 +36,14 @@ body {
     font-size: 10px;
     color: #ccc
 }
+
+.navbar-default {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7; }
+
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+    color: #5e5e5e;
+    background-color: transparent; }
 
 .browserupgrade {
     margin: 0.2em 0;
@@ -65,7 +78,7 @@ body {
     display: inline-block;
     width: 347px;
     height: 497px;
-    background: url("../images/hipster.png") no-repeat center top;
+    background: url("../images/lab-circle.png") no-repeat center top;
     background-size: contain;
 }
 
@@ -225,7 +238,7 @@ ul#strength {
    flex-direction: row;
    -webkit-justify-content: flex-end;
    justify-content: flex-end;
-}  
+}
 
 /* Align text in td verifically (top aligned by Bootstrap) */
 .jh-table > tbody > tr > td {
