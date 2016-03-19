@@ -4,9 +4,9 @@ import com.fcdnipro.dniprolab.Application;
 import com.fcdnipro.dniprolab.config.JHipsterProperties;
 import com.fcdnipro.dniprolab.repository.UserRepository;
 import com.fcdnipro.dniprolab.service.UserService;
-import com.fcdnipro.dniprolab.smsnotification.NotificationType;
-import com.fcdnipro.dniprolab.smsnotification.RequestBuilder;
-import com.fcdnipro.dniprolab.smsnotification.SmsNotificationEpochtaImpl;
+import com.fcdnipro.dniprolab.smsNotification.NotificationType;
+import com.fcdnipro.dniprolab.smsNotification.RequestBuilder;
+import com.fcdnipro.dniprolab.smsNotification.SmsNotificationServiceEpochtaImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,7 +56,7 @@ public class SmsNotificationIntTest {
     @Inject
     UserRepository userRepository;
 
-    private SmsNotificationEpochtaImpl smsNotificationTurboSms;
+    private SmsNotificationServiceEpochtaImpl smsNotification;
 
     private static final String GET_BALANCE_QUERY = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SMS><operations><operation>BALANCE</operation></operations><authentification><username>mock</username><password>mock</password></authentification></SMS>";
     private static final String GET_MESSAGE_STATUS_QUERY = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SMS><operations><operation>GETSTATUS</operation></operations><authentification><username>mock</username><password>mock</password></authentification><statistics><messageid>999</messageid></statistics></SMS>";
@@ -71,11 +71,11 @@ public class SmsNotificationIntTest {
         MockitoAnnotations.initMocks(this);
 
 
-        smsNotificationTurboSms = new SmsNotificationEpochtaImpl();
-        ReflectionTestUtils.setField(smsNotificationTurboSms, "userService", userService);
-        ReflectionTestUtils.setField(smsNotificationTurboSms, "jHipsterProperties", jHipsterProperties);
-        ReflectionTestUtils.setField(smsNotificationTurboSms, "messageSource", messageSource);
-        ReflectionTestUtils.setField(smsNotificationTurboSms, "requestBuilder", requestBuilder);
+        smsNotification = new SmsNotificationServiceEpochtaImpl();
+        ReflectionTestUtils.setField(smsNotification, "userService", userService);
+        ReflectionTestUtils.setField(smsNotification, "jHipsterProperties", jHipsterProperties);
+        ReflectionTestUtils.setField(smsNotification, "messageSource", messageSource);
+        ReflectionTestUtils.setField(smsNotification, "requestBuilder", requestBuilder);
 
         SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
         securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
@@ -84,25 +84,25 @@ public class SmsNotificationIntTest {
 
     @Test
     public void shouldReturnCorrectStringWithBalanceXMLQuery() throws Exception {
-        String expectedQuery = Whitebox.invokeMethod(smsNotificationTurboSms, "getRequestStringToGetBalance");
+        String expectedQuery = Whitebox.invokeMethod(smsNotification, "getRequestStringToGetBalance");
         Assert.assertEquals(expectedQuery, GET_BALANCE_QUERY);
     }
     @Test
     public void shouldReturnCorrectStringWithMessageStatusXMLQuery() throws Exception {
-        String expectedQuery = Whitebox.invokeMethod(smsNotificationTurboSms, "getRequestStringToGetSmsStatus", MESSAGE_ID);
+        String expectedQuery = Whitebox.invokeMethod(smsNotification, "getRequestStringToGetSmsStatus", MESSAGE_ID);
         Assert.assertEquals(expectedQuery, GET_MESSAGE_STATUS_QUERY);
     }
     @Test
     public void shouldReturnCorrectStringWithMessageSendQuery() throws Exception {
 
-        String expectedQuery = Whitebox.invokeMethod(smsNotificationTurboSms, "getRequestStringToSendSms", MESSAGE_TYPE);
+        String expectedQuery = Whitebox.invokeMethod(smsNotification, "getRequestStringToSendSms", MESSAGE_TYPE);
         Assert.assertEquals(expectedQuery, GET_SEND_SMS_QUERY);
     }
 
     @Test
     public void assertThatReturnsParsedString() {
         when(requestBuilder.doXMLQuery(GET_BALANCE_QUERY)).thenReturn(SERVER_BALANCE_RESPONSE);
-        String expectedBalance = smsNotificationTurboSms.getBalance();
+        String expectedBalance = smsNotification.getBalance();
         Assert.assertEquals(expectedBalance, BALANCE_STRING);
     }
 }
