@@ -12,7 +12,7 @@ angular.module('dniprolabApp')
                 views: {
                     'content@': {
                         templateUrl: 'scripts/app/main/main.html',
-                        controller: 'MainController'
+                        controller: 'MainController',
                     }
                 },
                 resolve: {

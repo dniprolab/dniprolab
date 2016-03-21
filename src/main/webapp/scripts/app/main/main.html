@@ -4,7 +4,7 @@
             <span class="hipster img-responsive img-rounded"></span>
         </div>
         <div class="col-md-8">
-            <h1 translate="main.title">Welcome, Java Hipster!</h1>
+            <h1 translate="main.title">Hello Football Player!!!!!!!</h1>
             <p class="lead" translate="main.subtitle">This is your homepage</p>
 
             <div ng-switch="isAuthenticated()">
@@ -12,31 +12,68 @@
                     You are logged in as user "{{account.login}}".
                 </div>
 
+
+
                 <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated">
                     If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
                 </div>
-
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.register">
-                    You don't have an account yet? <a class="alert-link" href="#/register">Register a new account</a>
-                </div>
             </div>
-
-            <p>Here you'll see DASHBOARD! <br/>-- The main page with quick and simple UI.</p>
-            <!--<p translate="main.question">-->
-                <!--If you have any question on JHipster:-->
-            <!--</p>-->
-
-            <!--<ul>-->
-                <!--<li><a href="http://jhipster.github.io/" target="_blank" translate="main.link.homepage">JHipster homepage</a></li>-->
-                <!--<li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" translate="main.link.stackoverflow">JHipster on Stack Overflow</a></li>-->
-                <!--<li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" translate="main.link.bugtracker">JHipster bug tracker</a></li>-->
-                <!--<li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" translate="main.link.chat">JHipster public chat room</a></li>-->
-                <!--<li><a href="https://twitter.com/java_hipster" target="_blank"  translate="main.link.contact">contact @java_hipster on Twitter</a></li>-->
-            <!--</ul>-->
-
-            <!--<p>-->
-             <!--<span translate="main.like">If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" translate="main.github">Github</a>!-->
-            <!--</p>-->
         </div>
     </div>
+
+    <div class="row" ng-switch="isAuthenticated()">
+        <div class="col-md-12">
+            <div ng-switch-when="true" ng-controller="ScheduleController">
+                <h2>Schedules</h2>
+                <jh-alert></jh-alert>
+                <div class="table-responsive">
+                    <table class="jh-table table table-striped">
+                        <thead>
+                        <tr jh-sort="predicate" ascending="reverse" callback="reset()">
+                            <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="opponent"><span translate="dniprolabApp.schedule.opponent">Opponent</span> <span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="date"><span translate="dniprolabApp.schedule.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="type"><span translate="dniprolabApp.schedule.type">Type</span> <span class="glyphicon glyphicon-sort"></span></th>
+                            <th jh-sort-by="comment"><span translate="dniprolabApp.schedule.comment">Comment</span> <span class="glyphicon glyphicon-sort"></span></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                        <tr ng-repeat="schedule in schedules track by schedule.id">
+                            <td><a ui-sref="schedule.detail({id:schedule.id})">{{schedule.id}}</a></td>
+                            <td>{{schedule.opponent}}</td>
+                            <td>{{schedule.date | date:'mediumDate'}}</td>
+                            <td translate="{{'dniprolabApp.MatchType.' + schedule.type}}">{{schedule.type}}</td>
+                            <td>{{schedule.comment}}</td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            ui-sref="schedule.detail({id:schedule.id})"
+                                            class="btn btn-info btn-sm">
+                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                        <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="schedule.edit({id:schedule.id})"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                        <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                                    </button>
+                                    <button type="submit"
+                                            ui-sref="schedule.delete({id:schedule.id})"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                        <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
