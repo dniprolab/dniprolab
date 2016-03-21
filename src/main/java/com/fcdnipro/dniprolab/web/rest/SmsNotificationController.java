@@ -1,6 +1,6 @@
 package com.fcdnipro.dniprolab.web.rest;
 
-import com.fcdnipro.dniprolab.smsnotification.SmsNotification;
+import com.fcdnipro.dniprolab.smsNotification.SmsNotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -21,7 +21,7 @@ public class SmsNotificationController {
     private final static Logger logger = LoggerFactory.getLogger(SmsNotificationController.class);
 
     @Inject
-    private SmsNotification smsNotification;
+    private SmsNotificationService smsNotification;
 
     /*
     * GET current balance
