@@ -1,7 +1,7 @@
 {
     "main": {
-        "title": "Welcome MIHALICH!!!!!",
-        "subtitle": "Here we'll see the main DASHBOARD with great usable UI!",
+        "title": "You are not logged IN",
+        "subtitle": "homepage",
         "logged": {
             "message": "You are logged in as  \"{{username}}\"."
         },
