@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.inject.Inject;
 
 /**
- * REST service which allows get sms pool service balance and particular message status
+ * REST service which allows get sms-service balance and status of particular message
  */
 @RestController
 @RequestMapping("/api")

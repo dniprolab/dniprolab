@@ -8,6 +8,7 @@ import com.fcdnipro.dniprolab.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,10 +35,10 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class ScheduleResource {
 
     private final Logger log = LoggerFactory.getLogger(ScheduleResource.class);
-        
+
     @Inject
     private ScheduleService scheduleService;
-    
+
     /**
      * POST  /schedules -> Create a new schedule.
      */
@@ -84,7 +85,7 @@ public class ScheduleResource {
     public ResponseEntity<List<Schedule>> getAllSchedules(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Schedules");
-        Page<Schedule> page = scheduleService.findAll(pageable); 
+        Page<Schedule> page = scheduleService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/schedules");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -124,11 +125,26 @@ public class ScheduleResource {
      * to the query.
      */
     @RequestMapping(value = "/_search/schedules/{query:.+}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+                            method = RequestMethod.GET,
+                            produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public List<Schedule> searchSchedules(@PathVariable String query) {
         log.debug("Request to search Schedules for query {}", query);
         return scheduleService.search(query);
+    }
+
+    /*
+    * GET /schedules/widget should return 5 closest to current date schedule entries
+     */
+    @RequestMapping(value = "schedules/widget",
+                                method = RequestMethod.GET,
+                                produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<Schedule>> getFiveClosestScheduleEntries() throws URISyntaxException {
+        log.debug("Invoke REST request to find 5 closest schedule entries");
+        List<Schedule> schedules = scheduleService.getFiveClosestEntries();
+        PageImpl<Schedule> page = new PageImpl<Schedule>(schedules);
+        HttpHeaders httpHeaders = PaginationUtil.generatePaginationHttpHeaders(page, "api/schedules/widget");
+        return new ResponseEntity<List<Schedule>>(page.getContent(), httpHeaders, HttpStatus.OK);
     }
 }
