@@ -24,7 +24,7 @@
     <div class="row" ng-switch="isAuthenticated()">
         <div class="col-md-6 widget">
             <div ng-switch-when="true" ng-controller="ScheduleController">
-                <h2>Schedules</h2>
+                <h2>Schedules <a href="http://127.0.0.1:8080/#/schedules">all</a></h2>
                 <jh-alert></jh-alert>
                 <div class="table-responsive">
                     <table class="jh-table table table-striped">
@@ -54,14 +54,13 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="5"><a href="http://127.0.0.1:8080/#/schedules">View all schedules</a></td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+
+
     </div>
 
 
