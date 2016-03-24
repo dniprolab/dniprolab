@@ -2,7 +2,6 @@
 
 angular.module('dniprolabApp')
     .controller('ScheduleController', function ($scope, $state, Schedule, ScheduleSearch, ParseLinks) {
-
         $scope.schedules = [];
         $scope.predicate = 'id';
         $scope.reverse = true;

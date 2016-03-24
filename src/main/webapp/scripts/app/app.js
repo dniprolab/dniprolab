@@ -98,6 +98,9 @@ angular.module('dniprolabApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pasc
                 ],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('global');
+                    $translatePartialLoader.addPart('schedule');
+                    $translatePartialLoader.addPart('matchType');
+                    $translatePartialLoader.addPart('message');
                 }]
             }
         });
