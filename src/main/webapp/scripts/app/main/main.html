@@ -22,7 +22,7 @@
     </div>
 
     <div class="row" ng-switch="isAuthenticated()">
-        <div class="col-md-12">
+        <div class="col-md-6 widget">
             <div ng-switch-when="true" ng-controller="ScheduleController">
                 <h2>Schedules</h2>
                 <jh-alert></jh-alert>
@@ -34,7 +34,6 @@
                             <th jh-sort-by="opponent"><span translate="dniprolabApp.schedule.opponent">Opponent</span> <span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="date"><span translate="dniprolabApp.schedule.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                             <th jh-sort-by="type"><span translate="dniprolabApp.schedule.type">Type</span> <span class="glyphicon glyphicon-sort"></span></th>
-                            <th jh-sort-by="comment"><span translate="dniprolabApp.schedule.comment">Comment</span> <span class="glyphicon glyphicon-sort"></span></th>
                             <th></th>
                         </tr>
                         </thead>
@@ -44,7 +43,6 @@
                             <td>{{schedule.opponent}}</td>
                             <td>{{schedule.date | date:'mediumDate'}}</td>
                             <td translate="{{'dniprolabApp.MatchType.' + schedule.type}}">{{schedule.type}}</td>
-                            <td>{{schedule.comment}}</td>
                             <td class="text-right">
                                 <div class="btn-group flex-btn-group-container">
                                     <button type="submit"
@@ -53,20 +51,11 @@
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                         <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
                                     </button>
-                                    <button type="submit"
-                                            ui-sref="schedule.edit({id:schedule.id})"
-                                            class="btn btn-primary btn-sm">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                        <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
-                                    </button>
-                                    <button type="submit"
-                                            ui-sref="schedule.delete({id:schedule.id})"
-                                            class="btn btn-danger btn-sm">
-                                        <span class="glyphicon glyphicon-remove-circle"></span>
-                                        <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
-                                    </button>
                                 </div>
                             </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5"><a href="http://127.0.0.1:8080/#/schedules">View all schedules</a></td>
                         </tr>
                         </tbody>
                     </table>
