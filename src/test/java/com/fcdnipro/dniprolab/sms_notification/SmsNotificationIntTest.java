@@ -64,7 +64,7 @@ public class SmsNotificationIntTest {
     private static final String MESSAGE_ID = "999";
     private static final NotificationType MESSAGE_TYPE = NotificationType.MESSAGE;
     private static final String SERVER_BALANCE_RESPONSE = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><RESPONSE><status>0</status><credits>0.682</credits></RESPONSE>";
-    private static final String BALANCE_STRING = "Delivery status is: Request balance status is OK. Available credits: 0.682";
+    private static final String BALANCE_STRING = "Delivery status is: OK. Available credits: 0.682";
 
     @Before
     public void init(){

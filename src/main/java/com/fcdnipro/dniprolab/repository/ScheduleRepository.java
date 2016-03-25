@@ -15,7 +15,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule,Long> {
 
     List<Schedule> findByDateBefore(LocalDate localDate);
 
-    @Query("select schedule from Schedule where schedule.date >= current_date order by schedule.date")
+    @Query("select s from Schedule s where s.date >= current_date order by s.date")
     List<Schedule> findFiveClosestScheduleEntries(Pageable pageable);
 
 }
