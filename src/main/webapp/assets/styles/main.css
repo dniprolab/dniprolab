@@ -5858,6 +5858,7 @@ body {
   color: #333333;
   height: 100vh;
   background-image: url("../images/body-bg.jpg");
+    background-attachment: fixed;
   background-repeat: repeat-y;
   background-position: center center;
   background-size: cover; }

@@ -47,7 +47,7 @@
                                 </tr>
                                 </thead>
                                 <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                                <tr ng-repeat="schedule in schedules track by schedule.id">
+                                <tr ng-repeat="schedule in schedules track by schedule.id" ng-show="$index<5">
                                     <td><a ui-sref="schedule.detail({id:schedule.id})">{{schedule.id}}</a></td>
                                     <td>{{schedule.opponent}}</td>
                                     <td>{{schedule.date | date:'mediumDate'}}</td>
@@ -66,6 +66,7 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
                 </div>
         </div>
@@ -87,7 +88,7 @@
                                 </tr>
                                 </thead>
                                 <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
-                                <tr ng-repeat="message in messages track by message.id">
+                                <tr ng-repeat="message in messages track by message.id" ng-show="$index<5">
                                     <td><a ui-sref="message.detail({id:message.id})">{{message.id}}</a></td>
                                     <td>{{message.author}}</td>
                                     <td>{{message.title}}</td>
