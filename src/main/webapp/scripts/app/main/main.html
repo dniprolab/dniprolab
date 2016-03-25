@@ -1,26 +1,39 @@
 <div ng-cloak ng-switch="isAuthenticated()">
-    <div class="row" ng-switch-when="false">
+    <!-- Change style for class .well on MainPage -->
+    <script>
+        function widgetBg(){
+            var widgetWrapper = document.getElementById('widget-wrapper');
+            var mainPageWell = widgetWrapper.parentElement.parentElement;
+            var mainPageWellClassName = mainPageWell.className;
+            var classToChange = 'well';
+
+            if(mainPageWellClassName.indexOf(classToChange) > -1){
+                mainPageWell.style.background = "none";
+            }
+        }
+        widgetBg();
+    </script>
+
+    <!-- Show this content for not logged users-->
+    <div class="row" ng-switch-when="false" style="background:rgba(255,255,255,.9);">
         <div class="col-md-4">
             <span class="hipster img-responsive img-rounded"></span>
         </div>
         <div class="col-md-8">
             <h1 translate="main.title">Hello Football Player!!!!!!!</h1>
             <p class="lead" translate="main.subtitle">This is your homepage</p>
-
-
-
-
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated">
-                    If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-                </div>
+            <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated">
+                If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+            </div>
         </div>
     </div>
 
-    <div class="row widget-wrapper" ng-switch-when="true">
+    <!-- Show mainPageWidgets for loggedIn users -->
+    <div class="row widget-wrapper" id="widget-wrapper" ng-switch-when="true">
         <div class="col-md-6">
                 <div class="widget">
                     <div ng-controller="ScheduleController">
-                        <h2>Schedules <a ui-sref="schedule">all</a></h2>
+                        <h2>Schedules <a ui-sref="schedule">All</a></h2>
                         <jh-alert></jh-alert>
                         <div class="table-responsive">
                             <table class="jh-table table table-striped">
@@ -59,8 +72,8 @@
 
         <div class="col-md-6">
                 <div class="widget">
-                    <div ng-controller="ScheduleController">
-                        <h2>Messages <a ui-sref="message">all</a></h2>
+                    <div ng-controller="MessageController">
+                        <h2>Messages <a ui-sref="message">All</a></h2>
                         <jh-alert></jh-alert>
                         <div class="table-responsive">
                             <table class="jh-table table table-striped">
