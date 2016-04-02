@@ -1,18 +1,17 @@
 'use strict';
 
 angular.module('dniprolabApp')
-    .controller('MessageController', function ($scope, $state, DataUtils, Message, MessageSearch, ParseLinks) {
-
-        $scope.messages = [];
-        $scope.predicate = 'id';
+    .controller('VideoController', function($scope, $state, DateUtils, Video, VideoSearch, ParseLinks){
+        $scope.videos = [];
+        $scope.predicate = id;
         $scope.reverse = true;
         $scope.page = 0;
-        $scope.loadAll = function() {
-            Message.query({page: $scope.page, size: 20, sort:
-                [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
+        $scope.loadAll = function () {
+            Video.query({page: $scope.page, size: 20, sort:
+                [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers){
                 $scope.links = ParseLinks.parse(headers('link'));
-                for (var i = 0; i < result.length; i++) {
-                    $scope.messages.push(result[i]);
+                for(var i = 0; i < result.length; i++){
+                    $scope.videos.push(result[i]);
                 }
             });
         };
@@ -26,7 +25,6 @@ angular.module('dniprolabApp')
             $scope.loadAll();
         };
         $scope.loadAll();
-
 
         $scope.search = function () {
             MessageSearch.query({query: $scope.searchQuery}, function(result) {
@@ -42,18 +40,14 @@ angular.module('dniprolabApp')
             $scope.reset();
             $scope.clear();
         };
-
         $scope.clear = function () {
-            $scope.message = {
-                text: null,
-                image: null,
-                imageContentType: null,
-                document: null,
-                documentContentType: null,
+            $scope.video = {
+                id: null,
+                label: null,
+                reference: null,
+                description: null,
                 author: null,
                 created: null,
-                title: null,
-                id: null
             };
         };
 
@@ -61,3 +55,4 @@ angular.module('dniprolabApp')
 
         $scope.byteSize = DataUtils.byteSize;
     });
+

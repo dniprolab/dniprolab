@@ -10,6 +10,9 @@
                 "message": "Message",
                 "schedule": "Schedule",
                 "advertisement": "Advertisement",
+                "video": "Video",
+                "videoAnalytics": "VideoAnalytics",
+                "advert": "Advert",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

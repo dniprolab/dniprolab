@@ -1,0 +1,46 @@
+
+<div>
+    <h2><span translate="dniprolabApp.advert.detail.title">Advert</span> {{advert.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.advert.date">Date</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{advert.date | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.advert.text">Text</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{advert.text}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="dniprolabApp.advert.author">Author</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{advert.author}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

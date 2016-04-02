@@ -1,0 +1,84 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myVideoAnalyticsLabel" translate="dniprolabApp.videoAnalytics.home.createOrEditLabel">Create or edit a VideoAnalytics</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="videoAnalytics.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.videoAnalytics.label" for="field_label">Label</label>
+            <input type="text" class="form-control" name="label" id="field_label"
+                    ng-model="videoAnalytics.label"
+                    required ng-maxlength="128" />
+            <div ng-show="editForm.label.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.label.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.label.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="128">
+                    This field cannot be longer than 128 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.videoAnalytics.reference" for="field_reference">Reference</label>
+            <input type="text" class="form-control" name="reference" id="field_reference"
+                    ng-model="videoAnalytics.reference"
+                    required ng-maxlength="128" />
+            <div ng-show="editForm.reference.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.reference.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.reference.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="128">
+                    This field cannot be longer than 128 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.videoAnalytics.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="videoAnalytics.description"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.videoAnalytics.author" for="field_author">Author</label>
+            <input type="text" class="form-control" name="author" id="field_author"
+                    ng-model="videoAnalytics.author"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.videoAnalytics.date" for="field_date">Date</label>
+            <input id="field_date" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="videoAnalytics.date" is-open="datePickerForDate.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label translate="dniprolabApp.videoAnalytics.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="videoAnalytics.user" ng-options="user as user.login for user in users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

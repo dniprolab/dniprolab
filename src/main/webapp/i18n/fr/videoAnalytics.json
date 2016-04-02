@@ -1,0 +1,28 @@
+{
+    "dniprolabApp": {
+        "videoAnalytics" : {
+            "home": {
+                "title": "VideoAnalyticss",
+                "createLabel": "Créer un nouveau VideoAnalytics",
+                "createOrEditLabel": "Créer ou éditer un VideoAnalytics",
+                "search": "Search for VideoAnalytics"
+            },
+            "created": "Un nouveau VideoAnalytics a été créé avec l'identifiant {{ param }}",
+            "updated": "Le VideoAnalytics avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le VideoAnalytics avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le VideoAnalytics {{ id }} ?"
+            },
+            "detail": {
+                "title": "VideoAnalytics"
+            },
+            "label": "Label",
+            "reference": "Reference",
+            "description": "Description",
+            "author": "Author",
+            "date": "Date",
+            "user": "User"
+        }
+    }
+}
+

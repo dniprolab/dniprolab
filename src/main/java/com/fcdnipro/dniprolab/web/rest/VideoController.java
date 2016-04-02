@@ -99,7 +99,7 @@ public class VideoController {
         throws URISyntaxException {
         logger.debug("REST request to get a list of video entities");
         Page<Video> list = videoService.getAllVideos(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(list, "/api/videos");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(list, "/api/video");
         return new ResponseEntity<>(list.getContent(), headers, HttpStatus.OK);
     }
 
@@ -149,7 +149,7 @@ public class VideoController {
     * GET all messages for current user
     * @return list of entities
      */
-    @RequestMapping(value = "/video/currentuser/", method = RequestMethod.GET,
+    @RequestMapping(value = "/video/user/", method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<Video>> findAllVideosForCurrentUser() throws URISyntaxException {
@@ -157,7 +157,7 @@ public class VideoController {
         String login = SecurityUtils.getCurrentUserLogin();
         List<Video> result = videoService.findVideoForCurrentUser(login);
         PageImpl<Video> list = new PageImpl<Video>(result);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(list, "/api/videos/currentuser/");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(list, "/api/video/user/");
         return new ResponseEntity<>(list.getContent().stream()
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }

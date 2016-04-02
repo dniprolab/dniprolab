@@ -1,0 +1,78 @@
+<div>
+    <h2 translate="dniprolabApp.video.home.title">Videos</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="video.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="hidden-xs" translate="dniprolabApp.video.home.createLabel">Create new Video</span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="searchQuery" id="searchQuery" placeholder="{{ 'dniprolabApp.video.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="search()">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr jh-sort="predicate" ascending="reverse" callback="reset()">
+                <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="text"><span translate="dniprolabApp.video.label">Label</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="image"><span translate="dniprolabApp.video.reference">Reference</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="document"><span translate="dniprolabApp.video.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="author"><span translate="dniprolabApp.video.author">Author</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="created"><span translate="dniprolabApp.video.created">Created</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="userLogin"><span translate="dniprolabApp.video.user">user</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+            <tr ng-repeat="video in videos track by video.id">
+                <td><a ui-sref="video.detail({id:video.id})">{{video.id}}</a></td>
+                <td>{{video.label}}</td>
+                <td>{{video.reference}}</td>
+                <td>{{video.description}}</td>
+                <td>{{video.author}}</td>
+                <td>{{video.created | date:'medium'}}</td>
+                <td>
+                    {{video.userLogin}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                ui-sref="video.detail({id:message.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="video.edit({id:video.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="video.delete({id:video.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+{
+    "dniprolabApp": {
+        "advert" : {
+            "home": {
+                "title": "Adverts",
+                "createLabel": "Create a new Advert",
+                "createOrEditLabel": "Create or edit a Advert",
+                "search": "Search for Advert"
+            },
+            "created": "A new Advert is created with identifier {{ param }}",
+            "updated": "A Advert is updated with identifier {{ param }}",
+            "deleted": "A Advert is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Advert {{ id }}?"
+            },
+            "detail": {
+                "title": "Advert"
+            },
+            "date": "Date",
+            "text": "Text",
+            "author": "Author"
+        }
+    }
+}

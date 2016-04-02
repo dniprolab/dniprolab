@@ -1,0 +1,56 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAdvertLabel" translate="dniprolabApp.advert.home.createOrEditLabel">Create or edit a Advert</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="advert.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.advert.date" for="field_date">Date</label>
+            <input id="field_date" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="advert.date" is-open="datePickerForDate.status.opened"
+            />
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="datePickerForDateOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.advert.text" for="field_text">Text</label>
+            <input type="text" class="form-control" name="text" id="field_text"
+                    ng-model="advert.text"
+                    required ng-maxlength="256" />
+            <div ng-show="editForm.text.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.text.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.text.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="256">
+                    This field cannot be longer than 256 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="dniprolabApp.advert.author" for="field_author">Author</label>
+            <input type="text" class="form-control" name="author" id="field_author"
+                    ng-model="advert.author"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
