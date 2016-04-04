@@ -5,7 +5,7 @@
 
 angular.module('dniprolabApp')
     .factory('MessageCurrentUser', function ($resource, DateUtils) {
-        return $resource('api/messages/currentuser/:login', {}, {
+        return $resource('api/messages/users', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

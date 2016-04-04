@@ -38,6 +38,9 @@ public class MessageService {
     private MessageMapper messageMapper;
 
     @Inject
+    private UserService userService;
+
+    @Inject
     private MessageSearchRepository messageSearchRepository;
 
     /**
@@ -101,14 +104,13 @@ public class MessageService {
 
     /*
     *  search for all messages for current user
-    *  @param login - login of current user
     *  @return list of entities
      */
     @Transactional(readOnly = true)
-    public List<Message> findAllMessagesForCurrentUser(String login){
-
+    public Page<Message> findAllMessagesForCurrentUser(Pageable pageable){
+        String login = userService.getCurrentUser().getLogin();
         log.debug("Invocation findAllMessagesForCurrentUser method with login = {}", login);
-        List<Message> result = messageRepository.findAllMessagesForCurrentUser(login);
+        Page<Message> result = messageRepository.findAllMessagesForCurrentUser(login, pageable);
         return result;
     }
 }

@@ -17,5 +17,5 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
     List<Message> findByUserIsCurrentUser();
 
     @Query("select message from Message message where message.user.login = ?1")
-    List<Message> findAllMessagesForCurrentUser(String login);
+    Page<Message> findAllMessagesForCurrentUser(String login, Pageable pageable);
 }

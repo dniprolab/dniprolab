@@ -113,16 +113,15 @@ public class MessageResource {
     * GET /messages/:login - get all Message entities for current user
     * @param - PathVariable login of current user
      */
-    @RequestMapping(value = "/messages/currentuser/{login}", method = RequestMethod.GET,
+    @RequestMapping(value = "/messages/users/", method = RequestMethod.GET,
                                                 produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<MessageDTO>> getAllMessagesForCurrentUser(@PathVariable String login, Pageable pageable) throws URISyntaxException {
+    public ResponseEntity<List<MessageDTO>> getAllMessagesForCurrentUser(Pageable pageable) throws URISyntaxException {
         log.debug("REST request to get all Message for current user");
-        List<Message> messages = messageService.findAllMessagesForCurrentUser(login);
-        PageImpl<Message> messagePage = new PageImpl<Message>(messages);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(messagePage, "/api/messages/currentuser/" + login);
-        return new ResponseEntity<>(messagePage.getContent().stream()
+        Page<Message> messages = messageService.findAllMessagesForCurrentUser(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(messages, "/api/messages/current");
+        return new ResponseEntity<>(messages.getContent().stream()
             .map(messageMapper::messageToMessageDTO)
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }

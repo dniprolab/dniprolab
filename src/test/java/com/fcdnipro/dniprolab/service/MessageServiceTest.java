@@ -12,8 +12,13 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import static org.assertj.core.api.Assertions.*;
@@ -72,6 +77,10 @@ public class MessageServiceTest {
 
         user = userService.getUserWithAuthoritiesByLogin("admin").get();
 
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(new UsernamePasswordAuthenticationToken("admin", "admin"));
+        SecurityContextHolder.setContext(securityContext);
+
         message = new Message();
         message.setText(DEFAULT_TEXT);
         message.setImage(DEFAULT_IMAGE);
@@ -93,14 +102,14 @@ public class MessageServiceTest {
 
         messageRepository.saveAndFlush(message);
 
-        List<Message> messages = messageService.findAllMessagesForCurrentUser(user.getLogin());
+        Page<Message> messages = messageService.findAllMessagesForCurrentUser(new PageRequest(0, 10));
 
-        assertThat(messages.size()).isEqualTo(1);
-        assertThat(messages.get(0).getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(messages.get(0).getAuthor()).isEqualTo(DEFAULT_AUTHOR);
-        assertThat(messages.get(0).getCreated()).isEqualTo(DEFAULT_CREATED);
-        assertThat(messages.get(0).getDocument()).isEqualTo(DEFAULT_DOCUMENT);
-        assertThat(messages.get(0).getText()).isEqualTo(DEFAULT_TEXT);
+        assertThat(messages.getContent().size()).isEqualTo(1);
+        assertThat(messages.getContent().get(0).getTitle()).isEqualTo(DEFAULT_TITLE);
+        assertThat(messages.getContent().get(0).getAuthor()).isEqualTo(DEFAULT_AUTHOR);
+        assertThat(messages.getContent().get(0).getCreated()).isEqualTo(DEFAULT_CREATED);
+        assertThat(messages.getContent().get(0).getDocument()).isEqualTo(DEFAULT_DOCUMENT);
+        assertThat(messages.getContent().get(0).getText()).isEqualTo(DEFAULT_TEXT);
     }
 
 }
