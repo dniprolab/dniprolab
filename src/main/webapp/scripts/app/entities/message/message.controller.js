@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dniprolabApp')
-    .controller('MessageController', function ($scope, $state, DataUtils, Message, MessageSearch, ParseLinks) {
+    .controller('MessageController', function ($scope, $state, DataUtils, Message, MessageCurrentUser, MessageSearch, ParseLinks) {
 
         $scope.messages = [];
         $scope.predicate = 'id';
@@ -16,6 +16,14 @@ angular.module('dniprolabApp')
                 }
             });
         };
+        $scope.loadAllForCurrentUser = function(){
+            MessageCurrentUser.query({page: $scope.page, size: 5, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
+                $scope.links = ParseLinks.parse(headers('link'));
+                for (var i = 0; i < result.length; i++) {
+                    $scope.messages.push(result[i]);
+                }
+            });
+        };
         $scope.reset = function() {
             $scope.page = 0;
             $scope.messages = [];
@@ -23,7 +31,8 @@ angular.module('dniprolabApp')
         };
         $scope.loadPage = function(page) {
             $scope.page = page;
-            $scope.loadAll();
+            /*$scope.loadAll();*/
+            $scope.loadAllForCurrentUser();
         };
         $scope.loadAll();
 
