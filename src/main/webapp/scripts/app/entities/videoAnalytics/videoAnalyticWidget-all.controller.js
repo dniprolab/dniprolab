@@ -1,13 +1,13 @@
 'use strict';
 
 angular.module('dniprolabApp')
-    .controller('VideoAnalyticsWidgetController', function($scope, $state, VideoAnalyticsWidget, ParseLinks){
+    .controller('VideoAnalyticsWidgetAllController', function($scope, $state, VideoAnalyticsWidget, ParseLinks){
         $scope.videoAnalyticss = [];
         $scope.predicate = 'id';
         $scope.reverse = true;
         $scope.page = 0;
         $scope.loadAll = function() {
-            VideoAnalytics.query({page: $scope.page, size: 5, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
+            VideoAnalytics.query({page: $scope.page, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
                     $scope.videoAnalyticss.push(result[i]);
@@ -24,8 +24,4 @@ angular.module('dniprolabApp')
             $scope.loadAll();
         };
         $scope.loadAll();
-    }).directive('videoAnalyticWidgetDirective', function(){
-        return {
-            templateUrl: 'scripts/app/entities/videoAnalytics/videoAnalyticWidget.html'
-        };
     });
