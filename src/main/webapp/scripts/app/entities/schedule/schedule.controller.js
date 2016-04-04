@@ -10,9 +10,7 @@ angular.module('dniprolabApp')
             Schedule.query({page: $scope.page, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 for (var i = 0; i < result.length; i++) {
-                    //if(result[i].comment == 'show'){
-                        $scope.schedules.push(result[i]);
-                    //}
+                    $scope.schedules.push(result[i]);
                 }
             });
         };
