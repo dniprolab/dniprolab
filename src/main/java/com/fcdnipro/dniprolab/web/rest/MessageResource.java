@@ -109,9 +109,9 @@ public class MessageResource {
             .map(messageMapper::messageToMessageDTO)
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
-    /*
-    * GET /messages/:login - get all Message entities for current user
-    * @param - PathVariable login of current user
+    /**
+     * GET /messages/:login - get all Message entities for current user
+     * @param - PathVariable login of current user
      */
     @RequestMapping(value = "/messages/users/", method = RequestMethod.GET,
                                                 produces = MediaType.APPLICATION_JSON_VALUE)

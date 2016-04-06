@@ -1,6 +1,3 @@
-/**
- * Created by Max on 04.04.2016.
- */
 'use strict';
 
 angular.module('dniprolabApp')
