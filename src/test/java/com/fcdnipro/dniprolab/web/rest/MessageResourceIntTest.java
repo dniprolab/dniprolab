@@ -262,7 +262,7 @@ public class MessageResourceIntTest {
         messageRepository.saveAndFlush(message);
 
         //get existing message with user="admin" owner
-        restMessageMockMvc.perform(get("/api/messages/currentuser/{user}", CURRENT_USER_LOGIN))
+        restMessageMockMvc.perform(get("/api/user-messages"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(message.getId().intValue())))

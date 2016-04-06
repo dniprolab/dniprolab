@@ -59,7 +59,7 @@ public class AdvertisementResource {
         }
         Advertisement result = advertisementService.save(advertisement);
 
-        log.info(smsNotificationService.notifyUser(notificationType));
+//        log.info(smsNotificationService.notifyUser(notificationType));
 
         return ResponseEntity.created(new URI("/api/advertisements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("advertisement", result.getId().toString()))

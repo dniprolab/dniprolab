@@ -1,11 +1,8 @@
-/**
- * Created by Max on 04.04.2016.
- */
 'use strict';
 
 angular.module('dniprolabApp')
     .factory('MessageCurrentUser', function ($resource, DateUtils) {
-        return $resource('api/messages/users', {}, {
+        return $resource('api/user-messages', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

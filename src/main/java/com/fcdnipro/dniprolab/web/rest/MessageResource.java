@@ -67,7 +67,7 @@ public class MessageResource {
         }
         MessageDTO result = messageService.save(messageDTO);
 
-        log.info(smsNotificationService.notifyUser(notificationType));
+//        log.info(smsNotificationService.notifyUser(notificationType));
 
         return ResponseEntity.created(new URI("/api/messages/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("message", result.getId().toString()))
@@ -109,18 +109,17 @@ public class MessageResource {
             .map(messageMapper::messageToMessageDTO)
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
-    /*
-    * GET /messages/:login - get all Message entities for current user
-    * @param - PathVariable login of current user
+    /**
+     * GET /messages/:login - get all Message entities for current user
      */
-    @RequestMapping(value = "/messages/users/", method = RequestMethod.GET,
+    @RequestMapping(value = "/user-messages", method = RequestMethod.GET,
                                                 produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
     public ResponseEntity<List<MessageDTO>> getAllMessagesForCurrentUser(Pageable pageable) throws URISyntaxException {
         log.debug("REST request to get all Message for current user");
         Page<Message> messages = messageService.findAllMessagesForCurrentUser(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(messages, "/api/messages/current");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(messages, "/api/user-messages");
         return new ResponseEntity<>(messages.getContent().stream()
             .map(messageMapper::messageToMessageDTO)
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
