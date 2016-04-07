@@ -140,7 +140,7 @@ public class VideoAnalyticsResource {
     * GET all messages for current user
     * @return list of entities
      */
-    @RequestMapping(value = "/video-analytics/users/", method = RequestMethod.GET,
+    @RequestMapping(value = "/user-videos", method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<List<VideoAnalytics>> findAllVideosForCurrentUser(Pageable pageable) throws URISyntaxException {

@@ -2,7 +2,7 @@
 
 angular.module('dniprolabApp')
     .factory('VideoAnalyticsWidget', function ($resource, DateUtils) {
-        return $resource('api/video-analytics/users/', {}, {
+        return $resource('api/user-videos', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
