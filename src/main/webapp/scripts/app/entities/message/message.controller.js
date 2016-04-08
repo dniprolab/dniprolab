@@ -34,7 +34,7 @@ angular.module('dniprolabApp')
             /*$scope.loadAll();*/
             $scope.loadAllForCurrentUser();
         };
-        $scope.loadAll();
+        $scope.loadAllForCurrentUser();
 
 
         $scope.search = function () {
