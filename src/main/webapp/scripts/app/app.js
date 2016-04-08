@@ -101,6 +101,7 @@ angular.module('dniprolabApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pasc
                     $translatePartialLoader.addPart('schedule');
                     $translatePartialLoader.addPart('matchType');
                     $translatePartialLoader.addPart('message');
+                    $translatePartialLoader.addPart('videoAnalytics');
                 }]
             }
         });

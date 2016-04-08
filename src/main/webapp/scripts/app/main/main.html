@@ -14,8 +14,6 @@
         widgetBg();
     </script>
 
-    <h2> <a ui-sref="videoAnalyticsWidget"> Video Analytic Current User </a> </h2>
-
     <!-- Show this content for not logged users-->
     <div class="row" ng-switch-when="false" style="background:rgba(255,255,255,.9);">
         <div class="col-md-4">
@@ -75,8 +73,7 @@
                     </div>
             </div>
 
-            <!-- video analytics table -->
-
+            <!-- video analytics widget -->
             <div class="col-md-6">
                 <div class="widget">
                     <div ng-controller="VideoAnalyticsWidgetController">
@@ -86,13 +83,10 @@
                             <table class="jh-table table table-striped">
                                 <thead>
                                 <tr jh-sort="predicate" ascending="reverse" callback="reset()">
-                                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                                    <th jh-sort-by="label"><span translate="dniprolabApp.videoAnalytics.label">Label</span> <span class="glyphicon glyphicon-sort"></span></th>
-                                    <th jh-sort-by="reference"><span translate="dniprolabApp.videoAnalytics.reference">Reference</span> <span class="glyphicon glyphicon-sort"></span></th>
-                                    <th jh-sort-by="description"><span translate="dniprolabApp.videoAnalytics.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                                    <th jh-sort-by="author"><span translate="dniprolabApp.videoAnalytics.author">Author</span> <span class="glyphicon glyphicon-sort"></span></th>
-                                    <th jh-sort-by="date"><span translate="dniprolabApp.videoAnalytics.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                                    <th jh-sort-by="user.login"><span translate="dniprolabApp.videoAnalytics.user">user</span> <span class="glyphicon glyphicon-sort"></span></th>
+                                    <th jh-sort-by="id"><span translate="global.field.id">ID</span></th>
+                                    <th jh-sort-by="label"><span translate="dniprolabApp.videoAnalytics.label">Label</span></th>
+                                    <th jh-sort-by="author"><span translate="dniprolabApp.videoAnalytics.author">Author</span></th>
+                                    <th jh-sort-by="date"><span translate="dniprolabApp.videoAnalytics.date">Date</span></th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -100,13 +94,8 @@
                                 <tr ng-repeat="videoAnalytics in videoAnalyticss track by videoAnalytics.id" ng-show="$index<5">
                                     <td><a ui-sref="videoAnalytics.detail({id:videoAnalytics.id})">{{videoAnalytics.id}}</a></td>
                                     <td>{{videoAnalytics.label}}</td>
-                                    <td>{{videoAnalytics.reference}}</td>
-                                    <td>{{videoAnalytics.description}}</td>
                                     <td>{{videoAnalytics.author}}</td>
                                     <td>{{videoAnalytics.date | date:'mediumDate'}}</td>
-                                    <td>
-                                        {{videoAnalytics.user.login}}
-                                    </td>
                                     <td class="text-right">
                                         <div class="btn-group flex-btn-group-container">
                                             <button type="submit"
