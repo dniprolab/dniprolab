@@ -30,8 +30,9 @@
 
 
     <!-- Show mainPageWidgets for loggedIn users -->
-    <!-- Schedules widget-->
+    <!-- widgets wrapper -->
         <div class="row widget-wrapper" id="widget-wrapper" ng-switch-when="true">
+            <!-- Schedules widget-->
             <div class="col-md-6">
                     <div class="widget">
                         <div ng-controller="ScheduleController">
@@ -48,7 +49,7 @@
                                         <th></th>
                                     </tr>
                                     </thead>
-                                    <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                                    <tbody>
                                     <tr ng-repeat="schedule in schedules track by schedule.id" ng-show="$index<5">
                                         <td><a ui-sref="schedule.detail({id:schedule.id})">{{schedule.id}}</a></td>
                                         <td>{{schedule.opponent}}</td>
@@ -90,7 +91,7 @@
                                     <th></th>
                                 </tr>
                                 </thead>
-                                <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                                <tbody>
                                 <tr ng-repeat="videoAnalytics in videoAnalyticss track by videoAnalytics.id" ng-show="$index<5">
                                     <td><a ui-sref="videoAnalytics.detail({id:videoAnalytics.id})">{{videoAnalytics.id}}</a></td>
                                     <td>{{videoAnalytics.label}}</td>
@@ -114,7 +115,7 @@
                 </div>
             </div>
 
-            <!-- Messages widget-->
+            <!-- Messages widget -->
             <div class="col-md-6">
                     <div class="widget">
                         <div ng-controller="MessageController">
@@ -131,7 +132,7 @@
                                         <th></th>
                                     </tr>
                                     </thead>
-                                    <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                                    <tbody>
                                     <tr ng-repeat="message in messages track by message.id" ng-show="$index<5">
                                         <td><a ui-sref="message.detail({id:message.id})">{{message.id}}</a></td>
                                         <td>{{message.author}}</td>
@@ -155,7 +156,5 @@
                     </div>
             </div>
         </div>
-
-
-
+    
 </div>
