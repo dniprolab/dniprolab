@@ -1,0 +1,39 @@
+<div class="col-md-6">
+    <div class="widget">
+        <div>
+            <h2>Video Analytics <a ui-sref="videoAnalyticsWidget">All</a></h2>
+            <jh-alert></jh-alert>
+            <div class="table-responsive">
+                <table class="jh-table table table-striped">
+                    <thead>
+                    <tr jh-sort="predicate" ascending="reverse" callback="reset()">
+                        <th jh-sort-by="id"><span translate="global.field.id">ID</span></th>
+                        <th jh-sort-by="label"><span translate="dniprolabApp.videoAnalytics.label">Label</span></th>
+                        <th jh-sort-by="author"><span translate="dniprolabApp.videoAnalytics.author">Author</span></th>
+                        <th jh-sort-by="date"><span translate="dniprolabApp.videoAnalytics.date">Date</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="videoAnalytics in videoAnalyticss track by videoAnalytics.id" ng-show="$index<5">
+                        <td><a ui-sref="videoAnalytics.detail({id:videoAnalytics.id})">{{videoAnalytics.id}}</a></td>
+                        <td>{{videoAnalytics.label}}</td>
+                        <td>{{videoAnalytics.author}}</td>
+                        <td>{{videoAnalytics.date | date:'mediumDate'}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        ui-sref="videoAnalytics.detail({id:videoAnalytics.id})"
+                                        class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="col-md-6">
+    <div class="widget">
+        <div>
+            <h2>Messages <a ui-sref="message">All</a></h2>
+            <jh-alert></jh-alert>
+            <div class="table-responsive">
+                <table class="jh-table table table-striped">
+                    <thead>
+                    <tr jh-sort="predicate" ascending="reverse" callback="reset()">
+                        <th jh-sort-by="id"><span translate="global.field.id">ID</span></th>
+                        <th jh-sort-by="author"><span translate="dniprolabApp.message.author">Author</span></th>
+                        <th jh-sort-by="title"><span translate="dniprolabApp.message.title">Title</span></th>
+                        <th jh-sort-by="created"><span translate="dniprolabApp.message.created">Created</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="message in messages track by message.id" ng-show="$index<5">
+                        <td><a ui-sref="message.detail({id:message.id})">{{message.id}}</a></td>
+                        <td>{{message.author}}</td>
+                        <td>{{message.title}}</td>
+                        <td>{{message.created | date:'medium'}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        ui-sref="message.detail({id:message.id})"
+                                        class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                    <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
