@@ -2,7 +2,9 @@ package com.fcdnipro.dniprolab.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fcdnipro.dniprolab.domain.Message;
+import com.fcdnipro.dniprolab.domain.User;
 import com.fcdnipro.dniprolab.service.MessageService;
+import com.fcdnipro.dniprolab.service.UserService;
 import com.fcdnipro.dniprolab.smsNotification.NotificationType;
 import com.fcdnipro.dniprolab.smsNotification.SmsNotificationService;
 import com.fcdnipro.dniprolab.web.rest.util.HeaderUtil;
@@ -12,7 +14,6 @@ import com.fcdnipro.dniprolab.web.rest.mapper.MessageMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,13 +26,14 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Message.
@@ -53,6 +55,9 @@ public class MessageResource {
     @Inject
     private MessageMapper messageMapper;
 
+    @Inject
+    private UserService userService;
+
     /**
      * POST  /messages -> Create a new message.
      */
@@ -65,6 +70,9 @@ public class MessageResource {
         if (messageDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("message", "idexists", "A new message cannot already have an ID")).body(null);
         }
+        User user = userService.getCurrentUser();
+        messageDTO.setCreated(ZonedDateTime.of(LocalDateTime.now(), ZoneId.of("EET")));
+        messageDTO.setAuthor(user.getFirstName() + " " + user.getLastName());
         MessageDTO result = messageService.save(messageDTO);
 
 //        log.info(smsNotificationService.notifyUser(notificationType));

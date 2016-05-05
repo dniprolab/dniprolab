@@ -1,9 +1,11 @@
 package com.fcdnipro.dniprolab.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fcdnipro.dniprolab.domain.User;
 import com.fcdnipro.dniprolab.domain.Video;
 import com.fcdnipro.dniprolab.domain.VideoAnalytics;
 import com.fcdnipro.dniprolab.security.SecurityUtils;
+import com.fcdnipro.dniprolab.service.UserService;
 import com.fcdnipro.dniprolab.service.VideoAnalyticsService;
 import com.fcdnipro.dniprolab.web.rest.util.HeaderUtil;
 import com.fcdnipro.dniprolab.web.rest.util.PaginationUtil;
@@ -22,6 +24,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -42,6 +45,9 @@ public class VideoAnalyticsResource {
     @Inject
     private VideoAnalyticsService videoAnalyticsService;
 
+    @Inject
+    private UserService userService;
+
     /**
      * POST  /videoAnalyticss -> Create a new videoAnalytics.
      */
@@ -54,6 +60,9 @@ public class VideoAnalyticsResource {
         if (videoAnalytics.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("videoAnalytics", "idexists", "A new videoAnalytics cannot already have an ID")).body(null);
         }
+        User user = userService.getCurrentUser();
+        videoAnalytics.setAuthor(user.getFirstName() + " " + user.getLastName());
+        videoAnalytics.setDate(LocalDate.now());
         VideoAnalytics result = videoAnalyticsService.save(videoAnalytics);
         return ResponseEntity.created(new URI("/api/videoAnalyticss/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("videoAnalytics", result.getId().toString()))

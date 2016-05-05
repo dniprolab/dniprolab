@@ -2,7 +2,9 @@ package com.fcdnipro.dniprolab.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fcdnipro.dniprolab.domain.Advert;
+import com.fcdnipro.dniprolab.domain.User;
 import com.fcdnipro.dniprolab.service.AdvertService;
+import com.fcdnipro.dniprolab.service.UserService;
 import com.fcdnipro.dniprolab.web.rest.util.HeaderUtil;
 import com.fcdnipro.dniprolab.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -34,10 +36,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class AdvertResource {
 
     private final Logger log = LoggerFactory.getLogger(AdvertResource.class);
-        
+
     @Inject
     private AdvertService advertService;
-    
+
+    @Inject
+    private UserService userService;
+
     /**
      * POST  /adverts -> Create a new advert.
      */
@@ -50,6 +55,8 @@ public class AdvertResource {
         if (advert.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("advert", "idexists", "A new advert cannot already have an ID")).body(null);
         }
+        User user = userService.getCurrentUser();
+        advert.setAuthor(user.getFirstName() + " " + user.getLastName());
         Advert result = advertService.save(advert);
         return ResponseEntity.created(new URI("/api/adverts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("advert", result.getId().toString()))
@@ -84,7 +91,7 @@ public class AdvertResource {
     public ResponseEntity<List<Advert>> getAllAdverts(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Adverts");
-        Page<Advert> page = advertService.findAll(pageable); 
+        Page<Advert> page = advertService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/adverts");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
