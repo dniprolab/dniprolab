@@ -28,6 +28,8 @@ angular.module('dniprolabApp')
  */
     .constant('LANGUAGES', [
         'en', 'fr'
+        ,'ru'
+        ,'es'
         // jhipster-needle-006 - JHipster will add new languages here
     ]
 );

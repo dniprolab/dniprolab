@@ -1,0 +1,20 @@
+{
+    "health": {
+        "title": "Состояние",
+        "stacktrace": "Stacktrace",
+        "indicator": {
+            "diskSpace": "Место на диске",
+            "mail": "Email",
+            "elasticsearch": "Elasticsearch",
+            "db": "База данных"
+        },
+        "table": {
+            "service": "Название сервиса",
+            "status": "статус"
+        },
+        "status": {
+            "UP": "UP",
+            "DOWN": "DOWN"
+        }
+    }
+}
