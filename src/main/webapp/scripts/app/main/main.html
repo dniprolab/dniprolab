@@ -28,18 +28,43 @@
         </div>
     </div>
 
+    <button class="btn btn-primary" ui-sref="advert.new" ng-switch-when="true" has-authority="ROLE_ADMIN">
+        <span class="glyphicon glyphicon-plus"></span>
+                    <span
+                        class="hidden-xs" translate="dniprolabApp.advert.home.createLabel">Create new Advertisement
+                    </span>
+    </button>
+
+    <button class="btn btn-primary" ui-sref="message.new" ng-switch-when="true" has-authority="ROLE_ADMIN">
+        <span class="glyphicon glyphicon-plus"></span>
+        <span class="hidden-xs" translate="dniprolabApp.message.home.createLabel">Create new Message</span>
+    </button>
+
+    <button class="btn btn-primary" ui-sref="schedule.new" ng-switch-when="true" has-authority="ROLE_ADMIN">
+        <span class="glyphicon glyphicon-plus"></span>
+                    <span
+                        class="hidden-xs" translate="dniprolabApp.schedule.home.createLabel">Create new Schedule entry
+                    </span>
+    </button>
+
+    <button class="btn btn-primary" ui-sref="videoAnalytics.new" ng-switch-when="true" has-authority="ROLE_ADMIN">
+        <span class="glyphicon glyphicon-plus"></span>
+                    <span
+                        class="hidden-xs" translate="dniprolabApp.videoAnalytics.home.createLabel">Create new Video Analytics entry
+                    </span>
+    </button>
 
     <!-- Show mainPageWidgets for loggedIn users -->
     <!-- widgets wrapper -->
         <div class="row widget-wrapper" id="widget-wrapper" ng-switch-when="true">
             <!-- Schedules widget-->
-            <schedules-widget></schedules-widget>
+            <schedules-widget ></schedules-widget>
 
             <!-- video analytics widget -->
-            <analytics-widget></analytics-widget>
+            <analytics-widget ></analytics-widget>
 
             <!-- Messages widget -->
-            <messages-widget></messages-widget>
+            <messages-widget ></messages-widget>
         </div>
 
 </div>
